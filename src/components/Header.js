@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from '../redux/configureStore';
-import { apiKey } from "./firebase";
+import { apiKey } from "../shared/firebase";
 
 import { Grid, Text, Button } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
