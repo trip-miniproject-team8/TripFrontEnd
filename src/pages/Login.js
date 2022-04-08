@@ -1,78 +1,56 @@
-import React, { useState } from "react";
-import { Text, Input, Grid, Button } from "../elements";
-import {getCookie,setCookie,deleteCookie} from "../shared/Cookie";
-import {useDispatch} from "react-redux";
+import React from 'react';
+import { useDispatch } from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
- 
-import { emailCheck } from "../shared/common";
+
+import { Grid, Text, Input, Button } from '../elements';
+import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
+import { emailCheck } from '../shared/common';
+
 const Login = (props) => {
+  const dispatch = useDispatch();
 
-    const [id,setId]=useState('');
-    const [pwd,setPwd]=useState('');
+  const [id, setId] = React.useState('');
+  const [pwd, setPwd] = React.useState('');
 
-    const dispatch=useDispatch();
-    // const disable=true;
-    const login = () =>{
-      console.log(id);
-      
-     
-      if(id===""||pwd==="")
-        {
-            
-            window.alert("아이디 혹은 비밀번호가 없슴");
-            return;
-        }
-      if (!emailCheck(id))
-      {
-        window.alert("이메일형식이 아님");
-        return;
+  const login = () => {
 
-      }
+    console.log(id);
 
-        dispatch(userActions.LoginFB(id,pwd));
-    };
-    
-    
+    if (id === '' || pwd === '') {
+      window.alert('아이디와 비밀번호를 모두 입력해주세요!');
+      return;
+    }
+
+    if (!emailCheck(id)) {
+      window.alert('이메일 형식이 맞지 않습니다!');
+      return;
+    }
+    console.log('로그인!')
+    dispatch(userActions.loginFB(id, pwd));
+  };
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <Text size="32px" bold>
-          로그인
-        </Text>
-
-        <Grid padding="16px 0px">
-          <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
-            _onChange={(e) => {
-                setId(e.target.value);
-              }}
-          />
+      <Grid width='95%' padding='16px' margin='auto'>
+        <Text bold size="32px">login</Text>
+        <Grid padding='16px 0 0'>
+          <Input label='ID' placeholder='Enter your ID.' _onChange={(e) => {
+            setId(e.target.value);
+          }}/>
         </Grid>
-
-        <Grid padding="16px 0px">
-          <Input
-            type="password"
-            label="패스워드"
-            placeholder="패스워드 입력해주세요."
-            _onChange={(e) => {
-                setPwd(e.target.value);
-              }}
-          />
+        <Grid padding='16px 0 25px'>
+          <Input label='Password' type='password' placeholder='Enter your password.' _onChange={(e) => {
+            setPwd(e.target.value);
+          }}/>
         </Grid>
-
-        <Button
-        //   disabled={(id===""||pwd==="")}
-          text="로그인하기"
-          _onClick={() => {
-            login();
-            console.log("로그인 했어!");
-            return false;
-          }}
-        ></Button>
+        <Button text='log_in' border='none' bg='#212121' color='#fff'_onClick={() => {
+          console.log('로그인했어!');
+          login();
+        }}></Button>
       </Grid>
     </React.Fragment>
   );
-};
+}
+
+Login.defaultProps = {};
 
 export default Login;
