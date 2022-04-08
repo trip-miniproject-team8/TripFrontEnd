@@ -5,7 +5,6 @@ import Upload from '../shared/Upload';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from "../redux/modules/image";
-import Layout from '../elements/Layout'
 
 
 const PostWrite = (props) => {
@@ -23,11 +22,6 @@ const PostWrite = (props) => {
 
   const [contents, setContents] = React.useState(_post ? _post.contents : '');
 
-  const [layout, setLayout] = React.useState('normal');
-  const handleLayout = (e) => {
-	setLayout(e.target.value);
-  };
-
   React.useEffect(() => {
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
@@ -37,8 +31,6 @@ const PostWrite = (props) => {
       return;
     } 
     if (is_edit) {
-      console.log('preview :: ', preview);
-      console.log('_post.image_url :: ', _post.image_url);
       dispatch(imageActions.setPreview(_post.image_url));
     }
 
@@ -76,45 +68,26 @@ const PostWrite = (props) => {
         <Text bold size='36px'>
           {is_edit ? "게시글 수정" : "게시글 작성"}
         </Text>
-        <Text margin='0' size='24px' bold>레이아웃 선택</Text>
-		<Grid>
-			<input type="radio" id="contactChoice1"
-			name="contact" value="normal" onClick={handleLayout}/>
-			<label for="contactChoice1">기본</label>
-
-			<input type="radio" id="contactChoice2"
-			name="contact" value="right" onClick={handleLayout}/>
-			<label for="contactChoice2">오른쪽</label>
-
-			<input type="radio" id="contactChoice3"
-			name="contact" value="left" onClick={handleLayout}/>
-			<label for="contactChoice3">왼쪽</label>
-		</Grid>
-		{/* <Input type='radio' value='normal' label='기본'/>
-		{/* <input type='radio' value='right'>오른쪽</input>
-		<input type='radio' value='left'>왼쪽</input> */}
         <Upload/>
-	</Grid>
-	<Grid>
-		<Grid padding='16px'>
-			<Text margin='0' size='24px' bold>미리보기</Text>
-		</Grid>
-		<Layout value={layout} preview={preview} contents={contents} _onChange={changeContents} post_id={post_id} _post={_post} is_edit={is_edit}>
-			{/* <Grid>
-				<Image shape='rectangle' src={preview ? preview : "http://via.placeholder.com/400x300"}/>
-			</Grid>
-			<Grid padding='16px'>
-				<Input value={contents} _onChange={changeContents} label='게시글 내용' placeholder='게시글 작성' multiLine/>
-			</Grid>
-			<Grid padding='16px'>
-				{is_edit ? (
-				<Button text="게시글 수정" _onClick={editPost}></Button>
-				) : (
-				<Button text="게시글 작성" _onClick={addPost}></Button>
-				)}
-			</Grid> */}
-		</Layout>
-	</Grid>	
+      </Grid>
+      <Grid>
+		    <Grid padding='16px'>
+			    <Text margin='0' size='24px' bold>미리보기</Text>
+		    </Grid>
+        <Grid>
+          <Image shape='rectangle' src={preview ? preview : "http://via.placeholder.com/400x300"}/>
+        </Grid>
+        <Grid padding='16px'>
+          <Input value={contents} _onChange={changeContents} label='게시글 내용' placeholder='게시글 작성' multiLine/>
+        </Grid>
+        <Grid padding='16px'>
+          {is_edit ? (
+          <Button text="게시글 수정" _onClick={editPost}></Button>
+          ) : (
+          <Button text="게시글 작성" _onClick={addPost}></Button>
+          )}
+        </Grid>
+	    </Grid>	
 	  
     </React.Fragment>
   );

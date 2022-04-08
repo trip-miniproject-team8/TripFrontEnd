@@ -6,7 +6,7 @@ import { apiKey } from "./firebase";
 
 import { Grid, Text, Button } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
-import Permit from './Permit';
+// import Permit from '../shared/Permit';
 
 const Header = (props) => {
   const dispatch = useDispatch();
