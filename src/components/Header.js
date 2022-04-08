@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from '../redux/configureStore';
 import { apiKey } from "../shared/firebase";
+import styled from 'styled-components';
 
 import { Grid, Text, Button } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
@@ -21,19 +22,13 @@ const Header = (props) => {
       <React.Fragment>
         <Grid width='95%' padding='16px' margin='auto' is_flex>
           <Grid>
-            <Text bold size='24px' margin='0'>PTree M</Text>
+            <Logo href='/' onClick={() => {history.push("/");}}>
+              <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
+            </Logo>
           </Grid>
-          <Grid is_flex>
-            <Button text='my_info'_onClick={()=>{
-              alert('내정보?');
-            }}></Button>
-            <Button text='notice' margin='10px' _onClick={()=>{
-              history.push('/noti');
-            }}></Button>
-            <Button text='logout' _onClick={()=>{
-              dispatch(userActions.logoutFB());
-            }}></Button>
-          </Grid>
+          <Button width='40%' margin='10px 0;' text='logout' _onClick={()=>{
+            dispatch(userActions.logoutFB());
+          }}></Button>
         </Grid>
       </React.Fragment>
     );
@@ -43,7 +38,9 @@ const Header = (props) => {
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto' is_flex>
         <Grid>
-          <Text bold size='24px' margin='0'>PTree M</Text>
+          <Logo href='/' onClick={() => {history.push("/");}}>
+            <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
+          </Logo>
         </Grid>
         <Grid is_flex>
           <Button text='login' margin='10px' _onClick={()=>{
@@ -59,5 +56,9 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {};
+
+const Logo = styled.a`
+  text-decoration: none;
+`;
 
 export default Header;
