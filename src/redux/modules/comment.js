@@ -20,9 +20,29 @@ const initialState = {
   is_loading: false,
 };
 
-const getCommentFB = (post_id) => {
+const getCommentFB = (post_id = null) => {
     return function(dispatch, getState, {history}){
+      // post_id가 없으면 바로 리턴하기!
+      if (!post_id) {
+        return;
+      }
+      const commentDB = firestore.collection("comment");
 
+      commentDB
+        .where("post_id", "==", post_id)
+        .orderBy("insert_dt", "desc")
+        .get()
+        .then((docs) => {
+          let list = [];
+          docs.forEach((doc) => {
+            list.push({ ...doc.data(), id: doc.id });
+          });
+
+        // 가져온 데이터를 넣어주기
+        dispatch(setComment(post_id, list));
+      }).catch(err => {
+        console.log("댓글 가져오기 실패!", post_id, err);
+      });
     }
 }
 
@@ -30,7 +50,7 @@ const getCommentFB = (post_id) => {
 export default handleActions(
   {
       [SET_COMMENT]: (state, action) => produce(state, (draft) => {
-
+        draft.list[action.payload.post_id] = action.payload.comment_list;
       }),
       
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
