@@ -32,8 +32,11 @@ function App() {
   
   return (
     <React.Fragment>
-      <Grid>
+      <Grid margin='auto'>
         <Header></Header>
+      </Grid>
+      <Headerline/>
+      <Grid margin='auto'>
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList} />
           <Route path="/login" exact component={Login} />
@@ -50,5 +53,10 @@ function App() {
     </React.Fragment>
     );
 }
+
+const Headerline = styled.hr`
+  border: 0.3px solid #ccc;
+  margin: 0;
+`;
 
 export default App;
