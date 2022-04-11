@@ -130,7 +130,7 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
+        setCookie("is_login", "success"); // 토큰 여기 들어가야함 
         draft.user = action.payload.user;
 				draft.is_login = true;
       }),

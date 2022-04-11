@@ -34,13 +34,13 @@ const PostList = (props) => {
         {post_list.map((p, idx) => {
           if(user_info && p.user_info.user_id === user_info.uid){
             return (
-              <Grid  border='1px solid #ccc' margin='20px auto' key={p.id} _onClick={() => {history.push(`/post/${p.id}`);}}>
+              <Grid  border='1px solid #ccc' margin='20px auto' key={p.id}>
                 <Post {...p} is_me/>
               </Grid>
             );
           }
           return (
-            <Grid border='1px solid #ccc' margin='20px auto' key={p.id} _onClick={() => {history.push(`/post/${p.id}`);}}>
+            <Grid border='1px solid #ccc' margin='20px auto' key={p.id}>
               <Post {...p}/>
             </Grid>
           );

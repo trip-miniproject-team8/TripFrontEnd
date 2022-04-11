@@ -26,7 +26,7 @@ Grid.defaultProps = {
   children: null,
   is_flex: false,
   width: "100%",
-  maxWidth: '1000px',
+  maxWidth: '900px',
   padding: false,
   margin: false,
   bg: false,
