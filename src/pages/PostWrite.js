@@ -34,7 +34,7 @@ const PostWrite = (props) => {
       dispatch(imageActions.setPreview(_post.image_url));
     }
 
-  });
+  },[]);
 
   const changeContents = (e) => {
     setContents(e.target.value);

@@ -25,8 +25,8 @@ const PostList = (props) => {
   // console.log(post_list)
   return (
     <React.Fragment>
-      {/* <InfinityScroll callNext={() => {  무한스크롤
-          console.log("next!");
+      {/* <InfinityScroll callNext={() => {  //무한스크롤
+          // console.log(paging.);
           dispatch(postActions.getPostFB(paging.next));
         }}
         is_next={paging.next? true : false}

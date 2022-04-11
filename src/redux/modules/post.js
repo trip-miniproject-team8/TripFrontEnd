@@ -12,8 +12,8 @@ const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING"
 
-// const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging})); // 무한스크롤 test
-const setPost = createAction(SET_POST, (post_list) => ({post_list}));
+const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging})); // 무한스크롤 test
+// const setPost = createAction(SET_POST, (post_list) => ({post_list}));
 const addPost = createAction(ADD_POST, (post) => ({post}));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -43,7 +43,7 @@ const initialPost = {
 // middleware
 // const getPostFB = (start = null, size=3) => {  // 무한스크롤 test
 //   return function (dispatch, getState, { history }) { 
-
+//     console.log(start);
 //     let _paging = getState().post.paging;
 
 //     if (_paging.start && !_paging.next) {
@@ -60,6 +60,7 @@ const initialPost = {
 //     }
 
 //     query.limit(size + 1).get().then(docs => {
+//       console.log(docs);
 //       let post_list = [];
 
 //       let paging = {
@@ -86,7 +87,8 @@ const initialPost = {
 //       });
 
 //       post_list.pop();
-
+//       console.log(paging.start, paging.next);
+//       console.log(post_list, paging);
 //       dispatch(setPost(post_list, paging));
 
 //     });
@@ -253,8 +255,8 @@ const getOnePostFB = (id) => {
           },
           { id: doc.id, user_info: {} }
         );
-
-        dispatch(setPost([post]));
+        dispatch(setPost([post], { start: null, next: null, size: 3 }));
+        // dispatch(setPost([post]));
       });
   }
 }
@@ -285,7 +287,9 @@ const deletePostFB = (post_id = null) => {
 export default handleActions(
   {
       // [SET_POST]: (state, action) => produce(state, (draft) => { // 무한스크롤 test
+      //   console.log("test", action.payload.post_list);
       //   draft.list.push(...action.payload.post_list);
+
 
       //   draft.list = draft.list.reduce((acc, cur) => {
       //     if (acc.findIndex((a) => a.id === cur.id) === -1){
@@ -298,6 +302,8 @@ export default handleActions(
       //   if (action.payload.paging) {
       //     draft.paging = action.payload.paging;
       //   }
+
+      //   // draft.paging.next += 1;
       //   draft.is_loading = false;
       // }),
       [SET_POST]: (state, action) =>
