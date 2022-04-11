@@ -35,7 +35,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
   shape: "circle",
-  src: "https://user-images.githubusercontent.com/91959791/162628908-e8f33c7a-1e40-4646-89ee-6228f76c815b.png",
+  src: "https://user-images.githubusercontent.com/91959791/162676721-7bc22048-3e1d-4514-b403-b91d81d9c8f2.png",
   size: 36,
 };
 

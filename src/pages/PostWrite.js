@@ -75,7 +75,7 @@ const PostWrite = (props) => {
 			    <Text margin='0' size='24px' bold>미리보기</Text>
 		    </Grid>
         <Grid>
-          <Image shape='rectangle' src={preview ? preview : "http://via.placeholder.com/400x300"}/>
+          <Image shape='rectangle' src={preview ? preview : "https://user-images.githubusercontent.com/91959791/162676899-be6a11b1-d103-4d57-89b8-34db876fad6f.png"}/>
         </Grid>
         <Grid padding='16px'>
           <Input value={contents} _onChange={changeContents} label='게시글 내용' placeholder='게시글 작성' multiLine/>

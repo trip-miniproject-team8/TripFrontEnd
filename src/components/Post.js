@@ -7,12 +7,19 @@ import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  console.log(props.src);
 
   const deletePost = () => {
     alert('삭제할거야?');
-    console.log(props);
     dispatch(postActions.deletePostFB(props.id));
   }
+
+  const editPost = () => {
+    alert('수정할거야?');
+    history.push(`/posting/${props.id}`);
+
+  }
+
   return (
     <React.Fragment>
       {/* <Grid width='95%' padding='16px' margin='auto'> */}
@@ -20,14 +27,12 @@ const Post = (props) => {
         <Grid padding='16px 16px 0'>
           <Grid is_flex>
             <Grid is_flex width='auto'>
-              <Image shape='circle' src={props.user_info.user_profile} />
+              <Image shape='circle' src={props.src} />
               <Text bold>{props.user_info.user_name}</Text>
             </Grid>
             <Grid is_flex width='auto'>
               <Text>{props.insert_dt}</Text>
-              {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={() => {
-                history.push(`/posting/${props.id}`);
-              }}>
+              {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
                 수정
                 </Button>
                 <Button width='auto' margin='0 0 0 10px' _onClick={deletePost}>

@@ -145,14 +145,13 @@ const addPostFB = (contents = '') => {
       insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
     };
 
-    const _image = getState().image.preview;
-    console.log(_image);
-
+    const _image = getState().image.preview; // 파일객체내용을 string으로 가지고 있음
+    // console.log(typeof _image); 
     const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, "data_url");
 
     _upload.then(snapshot => {
-      snapshot.ref.getDownloadURL().then(url => {
-        console.log(url);
+      snapshot.ref.getDownloadURL().then(url => { // 다운로드 url 
+        // console.log(url);
         return url;
       }).then(url => {
         postDB.add({...user_info, ..._post, image_url: url}).then((doc) => {
