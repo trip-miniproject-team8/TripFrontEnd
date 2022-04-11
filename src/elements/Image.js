@@ -35,7 +35,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
   shape: "circle",
-  src: "https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg",
+  src: "https://user-images.githubusercontent.com/91959791/162628908-e8f33c7a-1e40-4646-89ee-6228f76c815b.png",
   size: 36,
 };
 
@@ -73,7 +73,7 @@ const ImageCircle = styled.div`
   background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
-  margin: 4px;
+  margin: 4px 10px 4px 4px;
 `;
 
 export default Image;

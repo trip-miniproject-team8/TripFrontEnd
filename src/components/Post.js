@@ -20,7 +20,7 @@ const Post = (props) => {
         <Grid padding='16px 16px 0'>
           <Grid is_flex>
             <Grid is_flex width='auto'>
-              <Image shape='circle' src={props.src} />
+              <Image shape='circle' src={props.user_info.user_profile} />
               <Text bold>{props.user_info.user_name}</Text>
             </Grid>
             <Grid is_flex width='auto'>
@@ -55,9 +55,9 @@ const Post = (props) => {
 Post.defaultProps = {
   user_info: {
     user_name: 'yesleee',
-    user_profile: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
+    user_profile: 'https://user-images.githubusercontent.com/91959791/162628825-f5e6acac-b690-43c3-8f2d-6c21bd7615e4.png',
   },
-  image_url: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
+  image_url: 'https://user-images.githubusercontent.com/91959791/162628908-e8f33c7a-1e40-4646-89ee-6228f76c815b.png',
   contents: '베리베리냠냠',
   comment_cnt: 10,
   insert_dt: '2021-02-27 10:00:00',

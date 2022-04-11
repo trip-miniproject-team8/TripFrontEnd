@@ -23,9 +23,9 @@ const InfinityScroll = (props) => {
   const handleScroll = React.useCallback(_handleScroll, [loading]);
 
   React.useEffect(() => {
-    if (loading) {
-      return;
-    }
+    // if (loading) {
+    //   return;
+    // }
     if (is_next) {
       window.addEventListener("scroll", handleScroll);
     } else {
