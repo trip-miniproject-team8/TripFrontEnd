@@ -1,6 +1,8 @@
 import axios from 'axios';
 import comment from '../redux/modules/comment';
 axios.defaults.withCredentials = true;
+
+const token = sessionStorage.getItem('token');
 const api = axios.create({
     baseURL: 'http://3.35.52.88',
     // headers: {
