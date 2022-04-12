@@ -1,18 +1,20 @@
 import axios from 'axios';
 import comment from '../redux/modules/comment';
-
+axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: '',
-    headers: {
+    baseURL: 'http://3.35.52.88',
+    // headers: {
+    //     'content-type': 'application/json;charset=UTF-8',
+	// 	accept: 'application/json,',
 
-    },
+    // },
 });
 
-api.interceptors.request.use(function (config) {
-	const accessToken = document.cookie.split('=')[1];
-	config.headers.common['X-AUTH-TOKEN'] = `${accessToken}`;
-	return config;
-});
+// api.interceptors.request.use(function (config) {
+// 	const accessToken = document.cookie.split('=')[1];
+// 	config.headers.common['X-AUTH-TOKEN'] = `${accessToken}`;
+// 	return config;
+// });
 
 export const apis={
     //user
@@ -20,11 +22,26 @@ export const apis={
     login: (id,pw)=> api.post('/user/login', {username:id, password:pw}),
     signup: (id,nickname, pw, pwcheck)=> api.post('/api/signup', {
         username:id,
-        usernickname:nickname, 
+        userNickname:nickname, 
         password:pw,
         passwordCheck:pwcheck }),
-    islogin: ()=> api.get('/api/islogin'),
-    // lgout: 
+    islogin: ()=> api.post("/api/islogin", {}, {
+        headers: { 
+          "content-type": "applicaton/json;charset=UTF-8", 
+          "accept": "application/json", 
+          "Authorization": `Bearer ${localStorage.getItem('token')}`, 
+        },
+        // {
+        //   // Authorization: `Bearer ${localStorage.getItem('token')}`
+        // },
+      }),
+    lgout: ()=> api.get("/api/logout", {}, {
+        headers: { 
+          "content-type": "applicaton/json;charset=UTF-8", 
+          "accept": "application/json", 
+          "Authorization": `Bearer ${localStorage.getItem('token')}`, 
+        },
+      }),
     
     //post
     Getallpost : () => api.get('api/post'),

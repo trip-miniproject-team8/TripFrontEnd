@@ -3,6 +3,11 @@ import { produce } from "immer";
 import { firestore, storage } from "../../shared/firebase";
 import moment from 'moment';
 
+// 서버와 연결
+import axios from "axios";
+import api from "../../shared/Request";
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+
 import {actionCreators as imageActions} from "./image";
 import { doc, deleteDoc } from "firebase/firestore";
 
@@ -12,8 +17,8 @@ const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING"
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging})); // 무한스크롤 test
-// const setPost = createAction(SET_POST, (post_list) => ({post_list}));
+// const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging})); // 무한스크롤 test
+const setPost = createAction(SET_POST, (post_list) => ({post_list}));
 const addPost = createAction(ADD_POST, (post) => ({post}));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -24,8 +29,8 @@ const loading = createAction(LOADING, (is_loading) => ({is_loading}));
 
 const initialState = {
   list: [],
-  paging: { start: null, next: null, size: 3 },
-  is_loading: false,
+  // paging: { start: null, next: null, size: 3 },
+  // is_loading: false,
 }
 
 const initialPost = {
@@ -37,7 +42,7 @@ const initialPost = {
   image_url: '',
   contents: '',
   comment_cnt: 0,
-  insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+  // insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
 };
 
 // middleware
@@ -100,6 +105,23 @@ const getPostFB = () => {
 
     let query = postDB.orderBy("insert_dt", "desc");
 
+    // api
+    //   .get("/api/post").then((res) => {
+    //     console.log("전체 Post list ", res.data);
+    //     let post = {
+    //       user_info, ..._post, id: res.data.id, image_url: _image};
+
+    //     console.log('post작성완료! post : ',post);
+    //     dispatch(addPost(post));
+    //     dispatch(imageActions.setPreview(null));
+    
+    //     window.alert("작성이 완료됐습니다!");
+    //     history.replace('/');
+
+    //   }).catch((error) => {
+    //     console.log("post 추가 오류", error);
+    //   });
+
     query.get().then(docs => {
       let post_list = [];
       docs.forEach((doc) => {
@@ -132,9 +154,11 @@ const getPostFB = () => {
 const addPostFB = (contents = '') => {
   return function (dispatch, getState, { history }) { 
     
-    const postDB = firestore.collection('post');
+    // const postDB = firestore.collection('post');
 
     const _user = getState().user.user;
+    const _image = getState().image.preview; // 파일객체내용을 string으로 가지고 있음
+
     const user_info = {
       user_name: _user.user_name,
       user_id: _user.uid,
@@ -144,34 +168,39 @@ const addPostFB = (contents = '') => {
     const _post = {
       ...initialPost,
       contents: contents,
-      insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+      // insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
     };
-
-    const _image = getState().image.preview; // 파일객체내용을 string으로 가지고 있음
     // console.log(typeof _image); 
-    const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, "data_url");
+    // const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, "data_url");
+    api
+      .post("/api/image", {
+        data: {imageUrl: _image,},
+        headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+      }).then((res) => {
+        api
+          .post("/api/post", {
+            data: {content: contents,},
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+          }).then((res) => {
 
-    _upload.then(snapshot => {
-      snapshot.ref.getDownloadURL().then(url => { // 다운로드 url 
-        // console.log(url);
-        return url;
-      }).then(url => {
-        postDB.add({...user_info, ..._post, image_url: url}).then((doc) => {
-          let post = {user_info, ..._post, id: doc.id, image_url: url};
-          dispatch(addPost(post));
-          history.replace('/');
+            console.log(res.request);
+            let post = {
+              user_info, ..._post, id: res.data.id, image_url: _image};
 
-          dispatch(imageActions.setPreview(null));
+            console.log('post작성완료! post : ',post);
+            dispatch(addPost(post));
+            dispatch(imageActions.setPreview(null));
+        
+            window.alert("작성이 완료됐습니다!");
+            history.replace('/');
 
-        }).catch((err) => {
-          window.alert("앗! 포스트 작성에 문제가 있어요!");
-          console.log('post 작성 실패!', err);
-        });
-      }).catch((err) => {
-				window.alert("앗! 이미지 업로드에 문제가 있어요!");
-        console.log('이미지 업로드 실패!', err);
+          }).catch((error) => {
+            console.log("post 추가 오류", error);
+          });
+
+      }).catch((error) => {
+        console.log("img 업로드 오류", error);
       });
-    });    
   };
 
 };

@@ -29,7 +29,7 @@ const Signup = (props) => {
       window.alert('패스워드와 패스워드 확인이 일치하지 않습니다!');
       return;
     };
-    dispatch(userActions.signupFB(id, pwd, user_name));
+    dispatch(userActions.signupFB(id, user_name, pwd,pwd_check));
   };
 
   return (
