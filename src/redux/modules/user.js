@@ -35,6 +35,20 @@ const loginFB = (id, pwd) => {
   return function (dispatch, getState, {history}) {
     // const auth = getAuth();
 
+//     apis.login(id,pwd)
+// .then((res)=>{
+
+//   setCookie('token',res.data[1].token,7);
+//   localStorage.setItem('username',res.data[0].username);
+// dispatch(setUser)
+//   history.replace('login');
+// })
+// .catch((err)=>{
+//   window.alert('회원정보가 잘못되었습니다');
+// })
+
+  }
+
     setPersistence(auth, browserSessionPersistence)
       .then((res) => {
         signInWithEmailAndPassword(auth, id, pwd)
