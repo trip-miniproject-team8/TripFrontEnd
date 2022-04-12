@@ -4,8 +4,8 @@ import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 import { auth } from '../../shared/firebase';
 
 // 서버와 연결
-// import axios from "axios";
-// import api from "../../shared/Request";
+import axios from "axios";
+import { apis } from '../../shared/api';
 
 import {
   getAuth,
@@ -40,24 +40,21 @@ const initialState = {
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, {history}) {
     // // 서버연결버전
-    // console.log("username : " + id, "password : " + pwd, '전송, sessionID 요청');
+    console.log("username : " + id, "password : " + pwd, '전송, sessionID 요청');
 
-<<<<<<< HEAD
-//     apis.login(id,pwd)
-// .then((res)=>{
-
-//   setCookie('token',res.data[1].token,7);
-//   localStorage.setItem('username',res.data[0].username);
-// dispatch(setUser)
-//   history.replace('login');
-// })
-// .catch((err)=>{
-//   window.alert('회원정보가 잘못되었습니다');
-// })
+    apis.login(id,pwd)
+.then((res)=>{
+  dispatch(setUser)
+  history.replace('login');
+})
+.catch((err)=>{
+  window.alert('fucking login');
+  console.log(err);
+})
 
   }
+};
 
-=======
     // api
     //   .post("/user/login", {
     //     username: id,
@@ -81,40 +78,60 @@ const loginFB = (id, pwd) => {
     //     window.alert("로그인 오류");
     //     window.location.reload();
     //   });
->>>>>>> c92fdbed707816f79df723f2f0c6a3e17659fd7c
-    setPersistence(auth, browserSessionPersistence)
-      .then((res) => {
-        signInWithEmailAndPassword(auth, id, pwd)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            dispatch(setUser({
-              user_name: user.displayName,
-              id: id,
-              user_profile: '',
-              uid: user.uid,
-            }));
-            history.push('/');
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-          });
+
+  //   setPersistence(auth, browserSessionPersistence)
+  //     .then((res) => {
+  //       signInWithEmailAndPassword(auth, id, pwd)
+  //         .then((userCredential) => {
+  //           // Signed in
+  //           const user = userCredential.user;
+  //           dispatch(setUser({
+  //             user_name: user.displayName,
+  //             id: id,
+  //             user_profile: '',
+  //             uid: user.uid,
+  //           }));
+  //           history.push('/');
+  //           // ...
+  //         })
+  //         .catch((error) => {
+  //           const errorCode = error.code;
+  //           const errorMessage = error.message;
+  //           console.log(errorCode, errorMessage);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(errorCode, errorMessage);
+  //     });
+
+  // }
+// };
+
+const signupFB = (id, usernickname, pwd, pwcheck) => {
+  return function (dispatch, getState, {history}) {
+    console.log("username : " + id, "password : " + pwd, '전송, sessionID 요청');
+
+    apis.signup(id,usernickname,pwd,pwcheck)
+      .then((res)=>{
+        console.log(res);
+        window.alert('회원가입 성공');
+        history.replace("/");
+
       })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+      .catch((err)=>{
+        window.alert('회원정보가 잘못되었습니다');
+        console.log(err);
+      })
 
   }
 };
 
-const signupFB = (id, pwd, user_name) => {
-  return function (dispatch, getState, {history}) {
+    
+    
+    
     // // 서버연결버전
     // console.log("username : " + id, "password : " + pwd, "userNickname : " + user_name);
     // api
@@ -131,27 +148,27 @@ const signupFB = (id, pwd, user_name) => {
     //     console.log("회원가입 오류", error);
     //     window.alert("회원가입 오류");
     //   });
-    createUserWithEmailAndPassword(auth, id, pwd)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        updateProfile(auth.currentUser, {
-          displayName: user_name
-        }).then(() => {
-          dispatch(setUser({user_name: user_name, id: id, user_profile: '', uid: user.uid}));
-          history.push('/');
-        }).catch((error) => {
-          console.log(error);
-        });
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-  }
-};
+    // createUserWithEmailAndPassword(auth, id, pwd)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     updateProfile(auth.currentUser, {
+    //       displayName: user_name
+    //     }).then(() => {
+    //       dispatch(setUser({user_name: user_name, id: id, user_profile: '', uid: user.uid}));
+    //       history.push('/');
+    //     }).catch((error) => {
+    //       console.log(error);
+    //     });
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     // ..
+    //   });
+//   }
+// };
 
 const loginCheckFB = () => {
   return function (dispatch, getState, {history}) {
