@@ -20,15 +20,15 @@ const Header = (props) => {
   if(is_login && is_session){
     return (
       <React.Fragment>
-        <Grid width='95%' padding='16px' margin='auto' is_flex>
-          <Grid>
+        <Grid margin='auto' is_flex>
+          <Grid padding='24px'>
             <Logo href='/' onClick={() => {history.push("/");}}>
               <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
             </Logo>
           </Grid>
-          <Button width='40%' margin='10px 0;' text='logout' _onClick={()=>{
+          <Button width='auto' margin='10px 20px;' border='none' _onClick={()=>{
             dispatch(userActions.logoutFB());
-          }}></Button>
+          }}><Text bold>logout</Text></Button>
         </Grid>
       </React.Fragment>
     );
@@ -36,19 +36,19 @@ const Header = (props) => {
 
   return (
     <React.Fragment>
-      <Grid width='95%' padding='16px' margin='auto' is_flex>
-        <Grid>
+      <Grid margin='auto' is_flex>
+        <Grid padding='24px'>
           <Logo href='/' onClick={() => {history.push("/");}}>
             <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
           </Logo>
         </Grid>
-        <Grid is_flex>
-          <Button text='login' margin='10px' _onClick={()=>{
+        <Grid is_flex width='auto'>
+          <Button border='none' _onClick={()=>{
             history.push('/login');
-          }}></Button>
-          <Button text='join' _onClick={()=>{
+          }}><Text bold>login</Text></Button>
+          <Button border='none' margin='10px 20px 10px 10px' _onClick={()=>{
             history.push('/signup');
-          }}></Button>
+          }}><Text bold>join</Text></Button>
         </Grid>
       </Grid>
     </React.Fragment>

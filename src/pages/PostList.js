@@ -25,27 +25,27 @@ const PostList = (props) => {
   // console.log(post_list)
   return (
     <React.Fragment>
-      <InfinityScroll callNext={() => {
-          console.log("next!");
+      {/* <InfinityScroll callNext={() => {  //무한스크롤
+          // console.log(paging.);
           dispatch(postActions.getPostFB(paging.next));
         }}
         is_next={paging.next? true : false}
-        loading={is_loading}>
+        loading={is_loading}> */}
         {post_list.map((p, idx) => {
           if(user_info && p.user_info.user_id === user_info.uid){
             return (
-              <Grid key={p.id} _onClick={() => {history.push(`/post/${p.id}`);}}>
+              <Grid  border='1px solid #ccc' margin='20px auto' key={p.id}>
                 <Post {...p} is_me/>
               </Grid>
             );
           }
           return (
-            <Grid key={p.id} _onClick={() => {history.push(`/post/${p.id}`);}}>
+            <Grid border='1px solid #ccc' margin='20px auto' key={p.id}>
               <Post {...p}/>
             </Grid>
           );
         })}
-      </InfinityScroll>
+      {/* </InfinityScroll> */}
     </React.Fragment>
   );
 

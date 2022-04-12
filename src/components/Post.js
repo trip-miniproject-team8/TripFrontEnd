@@ -7,17 +7,24 @@ import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  console.log(props.src);
 
   const deletePost = () => {
     alert('삭제할거야?');
-    console.log(props);
     dispatch(postActions.deletePostFB(props.id));
   }
+
+  const editPost = () => {
+    alert('수정할거야?');
+    history.push(`/posting/${props.id}`);
+
+  }
+
   return (
     <React.Fragment>
       {/* <Grid width='95%' padding='16px' margin='auto'> */}
       <Grid>
-        <Grid width='95%' padding='16px 16px 0' margin='auto'>
+        <Grid padding='16px 16px 0'>
           <Grid is_flex>
             <Grid is_flex width='auto'>
               <Image shape='circle' src={props.src} />
@@ -25,9 +32,7 @@ const Post = (props) => {
             </Grid>
             <Grid is_flex width='auto'>
               <Text>{props.insert_dt}</Text>
-              {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={() => {
-                history.push(`/posting/${props.id}`);
-              }}>
+              {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
                 수정
                 </Button>
                 <Button width='auto' margin='0 0 0 10px' _onClick={deletePost}>
@@ -40,7 +45,7 @@ const Post = (props) => {
             <Text>{props.contents}</Text>
           </Grid> 
         </Grid>
-        <Grid>
+        <Grid _onClick={() => {history.push(`/post/${props.id}`);}}>
           <Image shape='rectangle' src={props.image_url} />
         </Grid>
         <Grid width='95%' padding='16px' margin='auto'>
@@ -55,9 +60,9 @@ const Post = (props) => {
 Post.defaultProps = {
   user_info: {
     user_name: 'yesleee',
-    user_profile: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
+    user_profile: 'https://user-images.githubusercontent.com/91959791/162628825-f5e6acac-b690-43c3-8f2d-6c21bd7615e4.png',
   },
-  image_url: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
+  image_url: 'https://user-images.githubusercontent.com/91959791/162628908-e8f33c7a-1e40-4646-89ee-6228f76c815b.png',
   contents: '베리베리냠냠',
   comment_cnt: 10,
   insert_dt: '2021-02-27 10:00:00',

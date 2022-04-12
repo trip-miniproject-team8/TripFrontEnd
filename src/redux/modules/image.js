@@ -57,7 +57,7 @@ export default handleActions(
 
     [SET_PREVIEW]: (state, action) => produce(state, (draft) => {
         console.log("draft ::", draft);
-        console.log("action.payload ::", action.payload);
+        console.log("action.payload.preview ::", action.payload.preview);
         draft.preview = action.payload.preview;
       }),
 
