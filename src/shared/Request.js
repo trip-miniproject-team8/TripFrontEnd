@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from "axios";
 // console.log("test1");
 // document.cookie = "MY_COOKIE=here;"
@@ -11,3 +12,15 @@ const api = axios.create({
 // instance.defaults.headers.common["Authorization"] = sessionStorage.getItem("MY_SESSION");; 
 
 export default api;
+=======
+import RESP from "./Response";
+
+// const resp = await axios.get('EC2IP:8000/api/hotdeals')
+export const resp = RESP.HOTDEALS;
+for (let i=0; i<resp.length; i++) {
+   
+    console.log(resp);
+}
+//회원가입 //로그인 요청안함
+
+>>>>>>> apitest
