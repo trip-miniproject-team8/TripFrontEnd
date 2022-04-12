@@ -1,6 +1,6 @@
-export const emailCheck = (email) => {
+export const idCheck = (id) => {
   let _reg = /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
+  // let _reg = /^[a-z]+[a-z0-9]{3,9}$/g;
 
-  // ^[A-Za-z0-9-_]{3-9}
-  return _reg.test(email);
+  return _reg.test(id);
 }

@@ -26,6 +26,16 @@ const Image = (props) => {
       </React.Fragment>
     );
   }
+
+  if (shape === "logo") {
+    return (
+      <React.Fragment>
+        <AspectOutter>
+          <AspectInner {...styles}></AspectInner>
+        </AspectOutter>
+      </React.Fragment>
+    );
+  }
   return (
     <React.Fragment>
         <ImageDefault {...styles}></ImageDefault>

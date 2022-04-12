@@ -21,10 +21,14 @@ import PostDetail from '../pages/PostDetail';
 
 function App() {
   const dispatch = useDispatch();
+  // 서버연결시
+  // const token = localStorage.getItem('token');
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
   React.useEffect(() => {
+
+    // if(token){ // 서버연결시
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
