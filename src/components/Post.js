@@ -7,7 +7,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  console.log(props.src);
+  // console.log(props.src);
 
   const deletePost = () => {
     alert('삭제할거야?');
