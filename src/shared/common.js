@@ -3,3 +3,9 @@ export const emailCheck = (email) => {
 
   return _reg.test(email);
 }
+export const idCheck =(id)=>
+{
+  let _reg = /^[-_0-9a-zA-Z]{3,10}$/;
+
+  return _reg.test(id);
+}
