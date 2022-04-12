@@ -28,6 +28,7 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({post_id}));
 const loading = createAction(LOADING, (is_loading) => ({is_loading}));
 
 const initialState = {
+  // is_loaded: false,
   list: [],
   // paging: { start: null, next: null, size: 3 },
   // is_loading: false,

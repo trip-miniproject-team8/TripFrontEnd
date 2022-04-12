@@ -32,6 +32,7 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 
 // initialState
 const initialState = {
+  is_loaded: false,
   user: null,
   is_login: false,
 };
@@ -65,7 +66,8 @@ const loginFB = (id, pwd) => {
         }))
         setCookie("is_login", token); // 토큰 여기 들어가야함
         localStorage.setItem("token", token); // 쿠키랑 로컬스토리지 둘중 하나만해도되면 토큰 여기에 저장
-        history.push('/');
+        // history.replace('/');
+        history.replace('/');
         window.location.reload();
         }).catch((err)=>{
           console.log("로그인 오류", err);
@@ -112,13 +114,14 @@ const loginCheckFB = () => {
           const user_info = JSON.parse(jsonPayload);
           console.log('로그인정보 :', user_info);
           const _user = getState().user;
-          console.log('유저정보11111 :', _user);
+          console.log('유저정보11111 :', token);
           dispatch(setUser({
             id: user_info.USER_NAME,  
             user_name: user_info.NICK_NAME,  
             user_profile: "https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png"
             // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
           }))
+          
         } else {
           console.log("유저데이터 없음");
           dispatch.logOut();
@@ -146,6 +149,7 @@ export default handleActions(
         console.log('set user!!! ', action.payload.user);
         draft.user = action.payload.user;
 				draft.is_login = true;
+        draft.is_loaded = true;
         console.log('set user22!!! ', draft.user);
       }),
 		[LOG_OUT]: (state, action) =>
@@ -154,6 +158,7 @@ export default handleActions(
         deleteCookie("is_login"); 
         draft.user = null;
 				draft.is_login = false;
+        draft.is_loaded = true;        
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
   },

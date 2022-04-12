@@ -60,7 +60,7 @@ const Post = (props) => {
 Post.defaultProps = {
   user_info: {
     user_name: 'yesleee',
-    user_profile: 'https://user-images.githubusercontent.com/91959791/162628825-f5e6acac-b690-43c3-8f2d-6c21bd7615e4.png',
+    user_profile: 'https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png',
   },
   image_url: 'https://user-images.githubusercontent.com/91959791/162628908-e8f33c7a-1e40-4646-89ee-6228f76c815b.png',
   contents: '베리베리냠냠',

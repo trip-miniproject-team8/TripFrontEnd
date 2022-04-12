@@ -11,6 +11,7 @@ const PostList = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user.user);
+  console.log('test!@#@@', user_info);;
   const is_loading = useSelector((state) => state.user.is_loading);
   const paging = useSelector((state) => state.post.paging);
 

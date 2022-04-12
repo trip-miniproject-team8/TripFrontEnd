@@ -20,9 +20,11 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Grid margin='auto' is_flex>
-          <Grid padding='24px'>            
+          <Grid>            
             <Logo href='/' onClick={() => {history.push("/");}}>
-              <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
+              <div></div>
+              {/* <img src={"https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png"}/> */}
+              {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
             </Logo>
           </Grid>
           <Button width='auto' margin='10px 20px;' border='none' _onClick={()=>{
@@ -36,9 +38,11 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Grid margin='auto' is_flex>
-        <Grid padding='24px'>
+        <Grid>
           <Logo href='/' onClick={() => {history.push("/");}}>
-            <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text>
+            <div></div>
+            {/* <img src={"https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png"}/> */}
+            {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
           </Logo>
         </Grid>
         <Grid is_flex width='auto'>
@@ -58,6 +62,13 @@ Header.defaultProps = {};
 
 const Logo = styled.a`
   text-decoration: none;
+  div {
+    background-image: url("https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png");
+    background-size: cover;
+    background-position: center;
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 export default Header;

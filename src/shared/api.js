@@ -25,7 +25,7 @@ export const apis={
         userNickname:nickname, 
         password:pw,
         passwordCheck:pwcheck }),
-    islogin: ()=> api.post("/api/islogin", {}, {
+    islogin: ()=> api.get("/api/islogin", {
         headers: { 
           "content-type": "applicaton/json;charset=UTF-8", 
           "accept": "application/json", 
@@ -35,13 +35,7 @@ export const apis={
         //   // Authorization: `Bearer ${localStorage.getItem('token')}`
         // },
       }),
-    lgout: ()=> api.get("/api/logout", {}, {
-        headers: { 
-          "content-type": "applicaton/json;charset=UTF-8", 
-          "accept": "application/json", 
-          "Authorization": `Bearer ${localStorage.getItem('token')}`, 
-        },
-      }),
+    // lgout: 
     
     //post
     Getallpost : () => api.get('api/post'),
