@@ -33,7 +33,7 @@ const Upload = (props) => {
 
     return (
         <React.Fragment>
-            <input onChange={selectFile} type="file" ref={fileInput} disabled={is_uploading}/>
+            <input id='input-image' onChange={selectFile} type="file" ref={fileInput} disabled={is_uploading}/>
             {/* <Button _onClick={uploadFB}>업로드하기</Button> */}
         </React.Fragment>
     )
