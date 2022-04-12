@@ -7,20 +7,20 @@ import styled from 'styled-components';
 
 import { Grid, Text, Button, Image } from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
-// import Permit from '../shared/Permit';
+import Permit from '../shared/Permit';
 
 const Header = (props) => {
   const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
   // 서버연결시
-  // const token = localStorage.getItem('token');
-  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  const is_session = sessionStorage.getItem(_session_key) ? true : false;
-  console.log(is_session);
+  const token = localStorage.getItem('token');
+  // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  // const is_session = sessionStorage.getItem(_session_key) ? true : false;
+  // console.log(is_session);
 
-  // if(is_login && token){ // 서버연결시
-  if(is_login && is_session){
+  if(is_login && token){ // 서버연결시
+  // if(is_login && is_session){
     return (
       <React.Fragment>
         <Grid margin='auto' is_flex>
