@@ -17,7 +17,7 @@ import Permit from './Permit';
 import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
 // import Notification from '../pages/Notification';
-import { resp } from './Request';
+// import { resp } from './Request';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,8 +32,8 @@ function App() {
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
-    console.log(resp);
-    console.log(resp.result[0]);
+    // console.log(resp);
+    // console.log(resp.result[0]);
   }, []);
   
   return (
