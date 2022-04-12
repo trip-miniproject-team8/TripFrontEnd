@@ -66,6 +66,7 @@ const loginFB = (id, pwd) => {
         setCookie("is_login", token); // 토큰 여기 들어가야함
         localStorage.setItem("token", token); // 쿠키랑 로컬스토리지 둘중 하나만해도되면 토큰 여기에 저장
         history.push('/');
+        window.location.reload();
         }).catch((err)=>{
           console.log("로그인 오류", err);
           window.alert("로그인 오류");
@@ -110,8 +111,8 @@ const loginCheckFB = () => {
           }).join(''));
           const user_info = JSON.parse(jsonPayload);
           console.log('로그인정보 :', user_info);
-          // const _user = getState();
-          // const _user = getState().user;
+          const _user = getState().user;
+          console.log('유저정보11111 :', _user);
           dispatch(setUser({
             id: user_info.USER_NAME,  
             user_name: user_info.NICK_NAME,  
