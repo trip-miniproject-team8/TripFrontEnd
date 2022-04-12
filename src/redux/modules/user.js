@@ -6,6 +6,8 @@ import { auth } from '../../shared/firebase';
 // 서버와 연결
 import axios from "axios";
 import api from "../../shared/Request";
+// import { jwtConstants } from './constants';
+// import * as jwt from 'jsonwebtoken';
 
 import {
   getAuth,
@@ -42,36 +44,34 @@ const loginFB = (id, pwd) => {
     // 서버연결버전
     console.log("username : " + id, "password : " + pwd, '전송, sessionID 요청');
 
-//     apis.login(id,pwd)
-// .then((res)=>{
-
-//   setCookie('token',res.data[1].token,7);
-//   localStorage.setItem('username',res.data[0].username);
-// dispatch(setUser)
-//   history.replace('login');
-// })
-// .catch((err)=>{
-//   window.alert('회원정보가 잘못되었습니다');
-// })
-
-  // }
-
     api
       .post("/user/login", {
         username: id,
         password: pwd,
       }).then((res) => {
-        console.log("로그인 성공, 데이터 : ", res.config.data);
+        console.log("로그인 성공, 데이터 : ", res.config);
+        const user_info = res.config.data.split("{")[1].split("}")[0].split(`"`);
+        // const user_info = res.config.data;
+        console.log('user_id', user_info);
         const token = res.headers.authorization.split(" ")[1]; // 형식은 모르지만 일단..
-        console.log("sessionID(토큰) : ", token.payload);
+        // const accessToken = JSON.parse(atob(token.split(".")[1]));
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        const accessToken = JSON.parse(jsonPayload);
+        console.log('token ::', accessToken)
+        // const decoded = jwt.decode(token);
+        // console.log("sessionID(토큰) : ", decoded);
 
         dispatch(setUser({
-          id: res.username,  // 형식은 모르지만 일단..
-          user_name: res.userNickname,  // 형식은 모르지만 일단..
+          id: user_info[3],  // 형식은 모르지만 일단..
+          // user_name: res.userNickname,  // 형식은 모르지만 일단..
           user_profile: "https://user-images.githubusercontent.com/91959791/162735074-353e821d-64a3-4336-b60c-0a9ffadb7137.png"
           // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
         }))
-        setCookie("is_login", true); // 토큰 여기 들어가야함
+        setCookie("is_login", token); // 토큰 여기 들어가야함
         localStorage.setItem("token", token); // 쿠키랑 로컬스토리지 둘중 하나만해도되면 토큰 여기에 저장
         history.replace('/');
       }).catch((error) => {
@@ -79,33 +79,6 @@ const loginFB = (id, pwd) => {
         window.alert("로그인 오류");
         window.location.reload();
       });
-    // setPersistence(auth, browserSessionPersistence)
-    //   .then((res) => {
-    //     signInWithEmailAndPassword(auth, id, pwd)
-    //       .then((userCredential) => {
-    //         // Signed in
-    //         const user = userCredential.user;
-    //         dispatch(setUser({
-    //           user_name: user.displayName,
-    //           id: id,
-    //           user_profile: '',
-    //           uid: user.uid,
-    //         }));
-    //         history.push('/');
-    //         // ...
-    //       })
-    //       .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         console.log(errorCode, errorMessage);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     // Handle Errors here.
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(errorCode, errorMessage);
-    //   });
 
   }
 };
@@ -153,14 +126,20 @@ const signupFB = (id, pwd, user_name) => {
 
 const loginCheckFB = () => {
   return function (dispatch, getState, {history}) {
+    // const token = sessionStorage.getItem("token");
     // 서버연결버전
     api
-      .get("/api/islogin", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      .post("/api/islogin", {}, {
+        headers: { 
+          "content-type": "applicaton/json;charset=UTF-8", 
+          "accept": "application/json", 
+          "Authorization": `Bearer ${localStorage.getItem('token')}`, 
         },
+        // {
+        //   // Authorization: `Bearer ${localStorage.getItem('token')}`
+        // },
       }).then((res) => {
-        console.log(res.request);
+        console.log("res 확인", res);
         if (res.username) { // username 이 있다면 or (result 값이 true 로 전달된다면)
           dispatch(setUser({
             id: res.username,  // 형식은 모르지만 일단..
@@ -169,9 +148,11 @@ const loginCheckFB = () => {
             // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
           }))
         } else {
+          console.log("오류야????");
           dispatch.logOut();
         }
       }).catch((error) => {
+        console.log(`Bearer ${localStorage.getItem('token')}`);
         console.log("오류", error);
       });
     // onAuthStateChanged(auth, (user) => {
