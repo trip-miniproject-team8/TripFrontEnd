@@ -31,11 +31,7 @@ const Post = (props) => {
   // const editPost = () => {
   //   history.push(`/posting/${props.id}`);
   // }
-<<<<<<< HEAD
-  // console.log(props);
-=======
   console.log("넘어온것 ", props);
->>>>>>> 41e65ed82b2a55c4d8462ebcd7398eee4ba251f6
   // material ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

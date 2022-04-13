@@ -33,12 +33,6 @@ const PostDetail = (props) => {
   const post_idx = post_list.findIndex(p => p.postId == id);
   // console.log(post_idx);
   const post = post_list[post_idx];
-<<<<<<< HEAD
-  console.log(post);
-  // console.log(post.username);
-  console.log(user_info.username);
-  let a=1;
-=======
 
   console.log('게시물 정보', post_list);
   console.log('유저 정보', user_info);
@@ -46,7 +40,6 @@ const PostDetail = (props) => {
   // console.log(post.username);
   // console.log(post);
 
->>>>>>> 41e65ed82b2a55c4d8462ebcd7398eee4ba251f6
   React.useEffect(() => {
 
 
