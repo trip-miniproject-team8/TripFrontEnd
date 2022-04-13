@@ -61,7 +61,6 @@ const PostWrite = (props) => {
         console.log(error.response.data);
         window.alert(error.response.data.errorMessage);
     })
-
     dispatch(postActions.addPostFB(contents));
   }
 

@@ -38,11 +38,11 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Grid margin='auto' is_flex>
-        <Grid>
+        <Grid padding='24px'>
           <Logo href='/' onClick={() => {history.push("/");}}>
-            <div></div>
-            {/* <img src={"https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png"}/> */}
-            {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
+          <div></div>
+              {/* <img src={"https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png"}/> */}
+              {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
           </Logo>
         </Grid>
         <Grid is_flex width='auto'>

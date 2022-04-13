@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
 
 import {apiKey} from "./firebase";
@@ -16,14 +16,11 @@ import { Grid, Button } from '../elements';
 import Permit from './Permit';
 import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
-import Spinner from './Spinner';
 // import Notification from '../pages/Notification';
 // import { resp } from './Request';
 
 function App() {
   const dispatch = useDispatch();
-  const is_loaded = useSelector((state) => state.user.is_loaded);
-  
   // 서버연결시
   const token = localStorage.getItem('token');
   // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
