@@ -21,7 +21,7 @@ const PostWrite = (props) => {
   
   const {history} = props;
 
-  const _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+  const _post = is_edit ? post_list.find((p) => p.id == post_id) : null;
 
   const [contents, setContents] = React.useState(_post ? _post.contents : '');
 

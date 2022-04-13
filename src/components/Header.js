@@ -35,7 +35,7 @@ const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const token =localStorage.getItem('token');
   const user_info = useSelector((state) => state.user);
-  console.log("로그인한 유저정보 :: ",user_info);
+  // console.log("로그인한 유저정보 :: ",user_info);
 
   // 여기부터 material-ui code!!
   // login, signup btn code

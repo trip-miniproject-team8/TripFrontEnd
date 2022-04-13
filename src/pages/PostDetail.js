@@ -23,15 +23,17 @@ const PostDetail = (props) => {
   // console.log(post_idx);
   const post = post_list[post_idx];
   console.log(post);
-  console.log(post.username);
+  // console.log(post.username);
   console.log(user_info.username);
+  let a=1;
   React.useEffect(() => {
 
     // if(post){
     //    return; 
     // }
+    console.log("rendering check detail page");
     dispatch(postActions.getOnePostFB(id));
-  }, []);
+  }, [a+1]);
 
 
     return (

@@ -104,9 +104,9 @@ const getPostFB = () => {
   return function (dispatch, getState, { history }) {
     const post_list=[];
     api.get('/api/post').then((res)=>{
-      console.log(res);
+      // console.log(res);
 
-      console.log(res.data);
+      // console.log(res.data);
       
       dispatch(setPost(res.data));
     })
@@ -282,7 +282,7 @@ export default handleActions(
       [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
-        console.log(...action.payload.post_list);
+        // console.log(...action.payload.post_list);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),

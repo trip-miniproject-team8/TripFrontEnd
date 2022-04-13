@@ -117,7 +117,7 @@ const loginCheckFB = () => {
           const user_info = JSON.parse(jsonPayload);
           console.log('로그인정보 :', user_info);
           const _user = getState().user;
-          console.log(_user);
+          // console.log(_user);
           // console.log('유저정보11111 :', token);
           dispatch(setUser({
             username: user_info.USER_NAME,  
@@ -155,8 +155,8 @@ export default handleActions(
         draft.user_profile=action.payload.user.user_profile;
 				draft.is_login = true;
         draft.is_loaded = true;
-        console.log(action);
-        console.log('set user22!!! ');
+        // console.log(action);
+        // console.log('set user22!!! ');
       }),
 		[LOG_OUT]: (state, action) =>
       produce(state, (draft) => {

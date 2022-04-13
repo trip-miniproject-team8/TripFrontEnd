@@ -2,16 +2,20 @@ import React from "react";
 import {Grid, Image, Text} from "../elements";
 
 import {useDispatch, useSelector} from "react-redux";
-import {actionCreators as commentActions} from "../redux/modules/comment";
+import comment, {actionCreators as commentActions} from "../redux/modules/comment";
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector(state => state.comment.list);
+  console.log("aklsdfklzkl");
+  console.log(comment_list[4]);
+  // console.log(Object.key(comment_list));
   const {post_id} = props;
 
   React.useEffect(() => {
     if(!comment_list[post_id]){
       // 코멘트 정보가 없으면 불러오기
+      console.log("코멘트정보없음");
       dispatch(commentActions.getCommentFB(post_id));
     }
   }, []);
@@ -25,6 +29,7 @@ const CommentList = (props) => {
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto'>
         {comment_list[post_id].map(c => {
+          console.log(c.commentId);
           return (<CommentItem key={c.id} {...c}/>);
         })}
       </Grid>
@@ -39,18 +44,19 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
+  console.log(props);
 
-  const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props;
+  
   return (
     <React.Fragment>
       <Grid is_flex>
         <Grid is_flex width="auto">
           <Image shape="circle"/>
-          <Text bold>{user_name}</Text>
+          <Text bold>{props.userNickname}</Text>
         </Grid>
         <Grid is_flex margin="0px 4px">
-            <Text margin="0px">{contents}</Text>
-            <Text margin="0px">{insert_dt}</Text>
+            <Text margin="0px">{props.comment}</Text>
+            <Text margin="0px">{props.createdAt}</Text>
         </Grid>
       </Grid>
     </React.Fragment>

@@ -28,16 +28,16 @@ const PostList = (props) => {
     }
   }, []);
   api.get('/api/post').then((res)=>{
-    console.log(res);
-    console.log(res.data);
+    // console.log(res);
+    // console.log(res.data);
     // temp_post_list=res.data;
   })
   .catch((error)=>{
     console.log(error);
     
   })
-  console.log(post_list);
-  console.log(user_info.username);
+  // console.log(post_list);
+  // console.log(user_info.username);
 
   // console.log(post_list);
   // console.log(temp_post_list);
@@ -51,10 +51,10 @@ const PostList = (props) => {
         loading={is_loading}> */}
         {post_list.map((p, idx) => {
           if(user_info&&p.username===user_info.username){
-            console.log(idx);
-            console.log(p);
-            console.log(p.username);
-            console.log(user_info);
+            // console.log(idx);
+            // console.log(p);
+            // console.log(p.username);
+            // console.log(user_info);
             return (
               <Grid  border='1px solid #ccc' margin='20px auto' key={p.id}>
                 <Post {...p} is_me/>

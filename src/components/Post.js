@@ -7,7 +7,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
   
-  console.log("In Post is_me",props.is_me);
+  // console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
   // console.log(props.src);
 
@@ -20,7 +20,7 @@ const Post = (props) => {
     history.push(`/posting/${props.id}`);
 
   }
-  console.log(props);
+  // console.log(props);
 
   return (
     <React.Fragment>
