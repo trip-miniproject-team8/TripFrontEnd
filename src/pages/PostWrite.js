@@ -85,29 +85,29 @@ const PostWrite = (props) => {
 
   return (
     <React.Fragment>
-
-<Grid  border='1px solid #ccc' margin='20px auto'>
-      <Grid padding='16px'> 
-        <Text bold size='36px'>
+      <Grid maxWidth='500px' padding='16px' margin='auto'>
+      {/* <Grid margin='20px auto'> */}
+      <Grid padding='16px'>
+        {/* <Text bold size='36px'>
           {is_edit ? "게시글 수정" : "게시글 작성"}
-        </Text>
+        </Text> */}
         <Upload/>
       </Grid>
       <Grid>
-		    <Grid padding='16px'>
+		    {/* <Grid padding='16px'>
 			    <Text margin='0' size='24px' bold>미리보기</Text>
-		    </Grid>
+		    </Grid> */}
         <Grid>
           <Image shape='rectangle' src={preview ? preview : "https://user-images.githubusercontent.com/91959791/162676899-be6a11b1-d103-4d57-89b8-34db876fad6f.png"}/>
         </Grid>
-        <Grid padding='16px'>
-          <Input value={contents} _onChange={changeContents} label='게시글 내용' placeholder='게시글 작성' multiLine/>
+        <Grid padding='16px 0 13px'>
+          <Input value={contents} _onChange={changeContents} placeholder='게시글 작성' multiLine/>
         </Grid>
-        <Grid padding='16px'>
+        <Grid padding='0 0 15px'>
           {is_edit ? (
-          <Button text="게시글 수정" _onClick={editPost}></Button>
+          <Button text="게시글 수정" border='none' bg='#212121' color='#fff' _onClick={editPost}></Button>
           ) : (
-          <Button text="게시글 작성" _onClick={addPost}></Button>
+          <Button text="게시글 작성" border='none' bg='#212121' color='#fff' _onClick={addPost}></Button>
           )}
         </Grid>
 	    </Grid>	
