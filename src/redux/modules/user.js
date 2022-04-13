@@ -64,7 +64,7 @@ const loginFB = (id, pwd) => {
           user_profile: "https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png"
           // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
         }))
-        setCookie("is_login", token); // 토큰 여기 들어가야함
+        setCookie("is_login", "success"); // 토큰 여기 들어가야함
         localStorage.setItem("token", token); // 쿠키랑 로컬스토리지 둘중 하나만해도되면 토큰 여기에 저장
         // history.replace('/');
         history.replace('/');
@@ -94,8 +94,7 @@ const signupFB = (id, usernickname, pwd, pwcheck) => {
       .catch((error)=>{
         console.log(error.response.data.errorMessage);
         console.log(error.response.status);
-        console.log(error.response.headers);
-        console.log(error.response.data);
+        // console.log(error.response.headers);
         window.alert(error.response.data.errorMessage);
       })
 

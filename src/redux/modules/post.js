@@ -102,54 +102,22 @@ const initialPost = {
 // }
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post");
+    const post_list=[];
+    api.get('/api/post').then((res)=>{
+      console.log(res);
+      console.log(res.data);
+      dispatch(setPost(res.data));
+    })
+    .catch((error)=>{
+      console.log(error);
+      
+    })
 
-    let query = postDB.orderBy("insert_dt", "desc");
+        
 
-    // api
-    //   .get("/api/post").then((res) => {
-    //     console.log("전체 Post list ", res.data);
-    //     let post = {
-    //       user_info, ..._post, id: res.data.id, image_url: _image};
-
-    //     console.log('post작성완료! post : ',post);
-    //     dispatch(addPost(post));
-    //     dispatch(imageActions.setPreview(null));
-    
-    //     window.alert("작성이 완료됐습니다!");
-    //     history.replace('/');
-
-    //   }).catch((error) => {
-    //     console.log("post 추가 오류", error);
-    //   });
-
-    query.get().then(docs => {
-      let post_list = [];
-      docs.forEach((doc) => {
-        let _post = doc.data();
-
-        // ['commenct_cnt', 'contents', ..]
-        let post = Object.keys(_post).reduce(
-          (acc, cur) => {
-            if (cur.indexOf("user_") !== -1) {
-              return {
-                ...acc,
-                user_info: { ...acc.user_info, [cur]: _post[cur] },
-              };
-            }
-            return { ...acc, [cur]: _post[cur] };
-          },
-          { id: doc.id, user_info: {} }
-        );
-
-        post_list.push(post);
-      });
-
-      console.log(post_list);
-
-      dispatch(setPost(post_list));
-    });
-  };
+      // dispatch(setPost(post_list));
+    }
+  
 };
 
 const addPostFB = (contents = '') => {
@@ -167,6 +135,7 @@ const addPostFB = (contents = '') => {
     };
 
     const _post = {
+
     };
   };
 

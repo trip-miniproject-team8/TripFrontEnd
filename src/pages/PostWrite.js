@@ -5,9 +5,10 @@ import Upload from '../shared/Upload';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from "../redux/modules/image";
-import { api } from '../shared/api';
+
 import { apis } from '../shared/api';
 import axios from 'axios';
+import api from '../shared/Request';
 const PostWrite = (props) => {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();

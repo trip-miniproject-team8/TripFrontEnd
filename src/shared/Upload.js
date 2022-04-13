@@ -5,6 +5,7 @@ import { storage } from './firebase';
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { apis } from "./api";
+import axios from "axios";
 const Upload = (props) => {
     const dispatch = useDispatch();
     const is_uploading = useSelector((state) => state.image.uploading);
@@ -16,11 +17,11 @@ const Upload = (props) => {
         const file = fileInput.current.files[0];
 
         reader.readAsDataURL(file);
-        console.log('file :: ', file)
-        console.log('reader ::', reader)
+        // console.log('file :: ', file)
+        // console.log('reader ::', reader)
 
         reader.onloadend = () => {
-            console.log('reader.result :: ', reader.result);
+            // console.log('reader.result :: ', reader.result);
             dispatch(imageActions.setPreview(reader.result));
         };
         // document.getElementById('input-image').src=file;
@@ -32,12 +33,11 @@ const Upload = (props) => {
             console.log(res);
         })
         .catch((error)=>{
-            console.log(error.response.data.errorMessage);
+            // console.log(error.response.data.errorMessage);
         console.log(error.response.status);
         console.log(error.response.headers);
         console.log(error.response.data);
         // window.alert(error.response.data.errorMessage);
-
         })
         
     }
