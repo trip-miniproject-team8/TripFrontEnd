@@ -10,7 +10,7 @@ const Input = (props) => {
       <React.Fragment>
         <Grid>
           {label && <Text margin='0'>{label}</Text>}
-          <ElTextarea value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
+          <ElTextarea value={value} rows={5} placeholder={placeholder} onChange={_onChange}></ElTextarea>
         </Grid>
       </React.Fragment>
     );
@@ -47,7 +47,7 @@ Input.defaultProps = {
 const ElTextarea = styled.textarea`
   border: 1px solid #212121;
   width: 100%;
-  padding: 12px 4px;
+  padding: 20px 20px;
   box-sizing: border-box;
   outline: none;
   &:focus {
