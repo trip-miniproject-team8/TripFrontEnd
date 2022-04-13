@@ -9,7 +9,7 @@ import { Grid } from '../elements';
 import { useSelector, useDispatch } from "react-redux";
 import post, {actionCreators as postActions} from "../redux/modules/post";
 
-const PostDetail = (props) => {
+  const PostDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
   
@@ -19,6 +19,7 @@ const PostDetail = (props) => {
   
   // const user_info = useSelector((state) => state.user);
   const post_list = useSelector((store) => store.post.list);
+  const userinfo = useSelector((state)=>state.user);
   const token = localStorage.getItem('token');
 
   const base64Url = token.split('.')[1];
@@ -27,18 +28,13 @@ const PostDetail = (props) => {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
   const user_info = JSON.parse(jsonPayload);
+  console.log(userinfo);
 
   
   // console.log(post_list[0].id);
   const post_idx = post_list.findIndex(p => p.postId == id);
   // console.log(post_idx);
   const post = post_list[post_idx];
-<<<<<<< HEAD
-  console.log(post);
-  // console.log(post.username);
-  console.log(user_info.username);
-  let a=1;
-=======
 
   console.log('게시물 정보', post_list);
   console.log('유저 정보', user_info);
@@ -46,7 +42,6 @@ const PostDetail = (props) => {
   // console.log(post.username);
   // console.log(post);
 
->>>>>>> 41e65ed82b2a55c4d8462ebcd7398eee4ba251f6
   React.useEffect(() => {
 
 
@@ -57,7 +52,7 @@ const PostDetail = (props) => {
       dispatch(postActions.getOnePostFB(id));
     }, []);
 
-
+    console.log(user_info);
     return (
         <React.Fragment>
           <Grid  border='1px solid #ccc' margin='20px auto'>
