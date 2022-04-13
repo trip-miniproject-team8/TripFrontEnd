@@ -18,6 +18,10 @@ const options = [
 const ITEM_HEIGHT = 48;
 
 const Post = (props) => {
+
+  // const id = props.match.params.id;
+  
+  console.log("게시글에서 props 확인",props.postId);
   
   // console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
@@ -27,7 +31,11 @@ const Post = (props) => {
   // const editPost = () => {
   //   history.push(`/posting/${props.id}`);
   // }
+<<<<<<< HEAD
   // console.log(props);
+=======
+  console.log("넘어온것 ", props);
+>>>>>>> 41e65ed82b2a55c4d8462ebcd7398eee4ba251f6
   // material ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -90,13 +98,6 @@ const Post = (props) => {
                   ))}
                 </Menu>
               </div>)
-                // <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
-                // 수정
-                // </Button>
-                // <Button width='auto' margin='0 0 0 10px' _onClick={deletePost}>
-                // 삭제
-                // </Button>
-                // </Grid>
                 }
             </Grid> 
           </Grid>
@@ -104,7 +105,10 @@ const Post = (props) => {
             <Text>{props.content}</Text>
           </Grid> 
         </Grid>
-        <Grid _onClick={() => {history.push(`/post/${props.id}`);}}>
+        <Grid _onClick={() => {
+          if (!props.postId){
+            history.push(`/post/${props.id}`);
+            }}}>
           <Image shape='rectangle' src={props.imageUrl} />
         </Grid>
         <Grid width='95%' padding='16px' margin='auto'>

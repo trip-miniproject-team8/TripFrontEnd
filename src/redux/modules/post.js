@@ -102,7 +102,7 @@ const initialPost = {
 // }
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const post_list=[];
+    // const post_list=[];
     api.get('/api/post').then((res)=>{
       // console.log(res);
 
@@ -199,6 +199,17 @@ const editPostFB = (post_id = null, post = {}) => {
 
 const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
+
+    apis.detailGet(post_id)
+      .then((res)=>{
+        console.log('하나의 게시물 데이터! :', res);
+        dispatch(setPost([res.data]));
+      })
+      .catch((error)=>{
+        console.log('게시물 하나 가져오기 오류!', error);
+        // console.log(error.response.data.errorMessage);
+      })
+    return;
     const _post = getState().post.list;
     console.log("하나만가져오기",_post)
     const postDB = firestore.collection("post");
