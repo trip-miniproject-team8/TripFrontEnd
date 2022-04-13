@@ -3,7 +3,7 @@ import comment from '../redux/modules/comment';
 axios.defaults.withCredentials = true;
 
 const token = sessionStorage.getItem('token');
-const api = axios.create({
+export const api = axios.create({
     baseURL: 'http://3.35.52.88',
     // headers: {
     //     'content-type': 'application/json;charset=UTF-8',
@@ -11,6 +11,10 @@ const api = axios.create({
 
     // },
 });
+const apiset = axios.create({
+    baseURL: 'http://3.35.52.88',
+});
+apiset.defaults.headers.common["Authorization"]=token;
 
 // api.interceptors.request.use(function (config) {
 // 	const accessToken = document.cookie.split('=')[1];
@@ -41,7 +45,12 @@ export const apis={
     
     //post
     Getallpost : () => api.get('api/post'),
-    // addPost: (content,imageURl)=>api.post('/api/post',) //이미지 보내는법 확인
+    addPost: (file)=>api.post('/api/image',file,{
+        headers:{  
+            'Content-Type': 'multipart/form-data',
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }),
     // editPost: (id, contents)=>api.post('api/post/{postid}', contents) //이미지 보내는법 확인
     delPost: (postid)=> api.delete('api.post/{postid'),
     detailGet: (id) =>api.get('api/post/{postid}'),

@@ -5,9 +5,11 @@ import Upload from '../shared/Upload';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from "../redux/modules/image";
-
-
+import { api } from '../shared/api';
+import { apis } from '../shared/api';
+import axios from 'axios';
 const PostWrite = (props) => {
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview);
@@ -41,6 +43,25 @@ const PostWrite = (props) => {
   }
 
   const addPost = () => {
+
+    console.log(contents);
+    api.post('/api/post',{content:contents},{
+      headers:{  
+        'Content-Type' : 'application/json',  
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }})
+    .then((res)=>{
+      console.log(contents);
+      console.log(res);
+    })
+    .catch((error)=>{
+      console.log(error.response.data.errorMessage);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        console.log(error.response.data);
+        window.alert(error.response.data.errorMessage);
+    })
+    
     dispatch(postActions.addPostFB(contents));
   }
 
@@ -48,7 +69,7 @@ const PostWrite = (props) => {
     dispatch(postActions.editPostFB(post_id, {contents: contents}));
   }
 
-  if (!is_login) {
+  if (!token) {
     return (
       <React.Fragment>
         <Grid width='95%' padding='16px' margin='100px auto' center>
