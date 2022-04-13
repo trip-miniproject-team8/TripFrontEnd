@@ -56,7 +56,11 @@ export const apis={
         }
     }),
     // editPost: (id, contents)=>api.post('api/post/{postid}', contents) //이미지 보내는법 확인
-    delPost: (postid)=> api.delete('api.post/{postid}'),
+    delPost: (postid)=> api.delete(`api/post/${postid}`,{
+        headers:{  
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }),
     detailGet: (id) =>api.get('api/post/{postid}'),
 
     //comment
