@@ -12,6 +12,7 @@ const Post = (props) => {
   // console.log(props.src);
 
   const deletePost = () => {
+      console.log(props.id);
     dispatch(postActions.deletePostFB(props.id));
   }
 
@@ -32,7 +33,7 @@ const Post = (props) => {
               <Text bold>{props.userNickname}</Text>
             </Grid>
             <Grid is_flex width='auto'>
-              <Text>{props.createdAT}</Text>
+              <Text>{props.createdAt}</Text>
               {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
                 수정
                 </Button>
@@ -50,7 +51,7 @@ const Post = (props) => {
           <Image shape='rectangle' src={props.imageUrl} />
         </Grid>
         <Grid width='95%' padding='16px' margin='auto'>
-          <Text margin='0' bold>댓글 {props.commentCTn}개</Text>        
+          <Text margin='0' bold>댓글 {props.commentCtn}개</Text>        
         </Grid>
       </Grid>
     </React.Fragment>
