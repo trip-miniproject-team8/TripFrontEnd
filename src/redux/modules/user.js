@@ -90,7 +90,7 @@ const signupFB = (id, usernickname, pwd, pwcheck) => {
         console.log('백데이터 전달 :', res); // 회원가입 성공 유무를 서버에서 알려줘야할거같음... 
         console.log("회원가입 성공");
         window.alert("환영합니다!\n회원가입이 완료되셨습니다");
-        history.replace('/'); // 로그인창으로 이동
+        history.replace('/login'); // 로그인창으로 이동
       })
       .catch((error)=>{
         console.log(error.response.data.errorMessage);

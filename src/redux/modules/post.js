@@ -199,6 +199,8 @@ const editPostFB = (post_id = null, post = {}) => {
 
 const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
+    const _post = getState().post.list;
+    console.log("하나만가져오기",_post)
     const postDB = firestore.collection("post");
     postDB
       .doc(post_id)
@@ -282,7 +284,7 @@ export default handleActions(
       [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
-        console.log(...action.payload.post_list);
+        console.log("확인",...action.payload.post_list);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),

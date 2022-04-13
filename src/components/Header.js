@@ -5,7 +5,7 @@ import { history } from '../redux/configureStore';
 import { apiKey } from "../shared/firebase";
 import styled from 'styled-components';
 
-import { Grid, Text} from '../elements';
+import { Grid, Text, Image} from '../elements';
 import { getCookie, deleteCookie } from '../shared/Cookie';
 import Permit from '../shared/Permit';
 
@@ -99,82 +99,82 @@ const Header = (props) => {
               {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
             </Logo>
           </Grid>
-          <Grid is_flex width='auto' padding='50px 30px 0px 0px' margin='0 0 0 100px'>
-          <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={profileOpen ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={profileOpen ? 'true' : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={profileOpen}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem>
-          <Avatar /> {user_info.usernickname}
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={()=>{
-            alert("업데이트 준비중입니다!\n조금만 기다려주세요 :)");
-          }}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={()=>{
-            dispatch(userActions.logoutFB());
-          }}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          {/* <Text size='16px' margin='0'>logout</Text> */}
-          Logout
-        </MenuItem>
-      </Menu>
+          <Grid is_flex>
+            <Grid></Grid>
+            <Grid width='auto' margin='0 20px' padding='60px 0 0'>
+              <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                <Tooltip title="Account settings">
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 2 }}
+                    aria-controls={profileOpen ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={profileOpen ? 'true' : undefined}
+                  >
+                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Menu
+                anchorEl={anchorEl}
+                id="account-menu"
+                open={profileOpen}
+                onClose={handleClose}
+                onClick={handleClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1.5,
+                    '& .MuiAvatar-root': {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    '&:before': {
+                      content: '""',
+                      display: 'block',
+                      position: 'absolute',
+                      top: 0,
+                      right: 14,
+                      width: 10,
+                      height: 10,
+                      bgcolor: 'background.paper',
+                      transform: 'translateY(-50%) rotate(45deg)',
+                      zIndex: 0,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                <MenuItem>
+                  <Image shape='circle' src={props.src} size='30' margin='0 8px 0 0'/> {user_info.usernickname}
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={()=>{
+                    alert("업데이트 준비중입니다!\n조금만 기다려주세요 :)");
+                  }}>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  Settings
+                </MenuItem>
+                <MenuItem onClick={()=>{
+                    dispatch(userActions.logoutFB());
+                  }}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  {/* <Text size='16px' margin='0'>logout</Text> */}
+                  Logout
+                </MenuItem>
+              </Menu>
+             </Grid>
           </Grid>
-          {/* <Button width='auto' margin='10px 20px;' border='none' _onClick={()=>{
-            dispatch(userActions.logoutFB());
-          }}><Text bold>logout</Text></Button> */}
         </Grid>
       </React.Fragment>
     );
@@ -184,60 +184,64 @@ const Header = (props) => {
     <React.Fragment>
       <Grid margin='auto' is_flex>
         <Grid>
+          <div></div>
         </Grid>
-        <Grid>
+        <Grid>            
           <Logo href='/' onClick={() => {history.push("/");}}>
           <div></div>
               {/* <img src={"https://user-images.githubusercontent.com/91959791/163001319-d6e449d7-8443-4106-8128-902e93a889f4.png"}/> */}
               {/* <Text bold size='24px' margin='0' onClick={() => {history.push("/");}}>EyeTravel</Text> */}
           </Logo>
         </Grid>
-        <Grid is_flex width='auto' padding='50px 30px 0px 0px' margin='0 0 0 100px'>
+        <Grid is_flex>
+          <Grid></Grid>
+          <Grid width='auto' margin='0 20px' padding='60px 0 0'>
 
-          <Button
-            ref={anchorRef}
-            id="composition-button"
-            aria-controls={open ? 'composition-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}>
-            START
-          </Button>
-          <Popper
-            open={open}
-            anchorEl={anchorRef.current}
-            role={undefined}
-            placement="bottom-start"
-            transition
-            disablePortal>
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{
-                  transformOrigin:
-                    placement === 'bottom-start' ? 'left top' : 'left bottom',
-                }}>
-                <Paper>
-                  <ClickAwayListener onClickAway={startHandleClose}>
-                    <MenuList
-                      autoFocusItem={open}
-                      id="composition-menu"
-                      aria-labelledby="composition-button"
-                      onKeyDown={handleListKeyDown}>
-                      <MenuItem onClick={loginBtn}>Login</MenuItem>
-                      <MenuItem onClick={signupBtn}>Signup</MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
-          {/* <Button border='none' _onClick={()=>{
-            history.push('/login');
-          }}><Text bold>login</Text></Button>
-          <Button border='none' margin='10px 20px 10px 10px' _onClick={()=>{
-            history.push('/signup');
-          }}><Text bold>join</Text></Button> */}
+            <Button
+              ref={anchorRef}
+              id="composition-button"
+              aria-controls={open ? 'composition-menu' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}>
+              START
+            </Button>
+            <Popper
+              open={open}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              placement="bottom-start"
+              transition
+              disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  }}>
+                  <Paper>
+                    <ClickAwayListener onClickAway={startHandleClose}>
+                      <MenuList
+                        autoFocusItem={open}
+                        id="composition-menu"
+                        aria-labelledby="composition-button"
+                        onKeyDown={handleListKeyDown}>
+                        <MenuItem onClick={loginBtn}>Login</MenuItem>
+                        <MenuItem onClick={signupBtn}>Signup</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+            {/* <Button border='none' _onClick={()=>{
+              history.push('/login');
+            }}><Text bold>login</Text></Button>
+            <Button border='none' margin='10px 20px 10px 10px' _onClick={()=>{
+              history.push('/signup');
+            }}><Text bold>join</Text></Button> */}
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
@@ -257,8 +261,9 @@ const Logo = styled.a`
     background-position: center;
     width: 150px;
     height: 150px;
+    margin: -20px auto 0;
     padding: 0 30px 0px 30px;
-    margin: -20px 0 0 0;
+    // margin: -20px 0 0 0;
   }
 `;
 

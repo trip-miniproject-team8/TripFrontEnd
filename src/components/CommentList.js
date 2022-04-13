@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Image, Text} from "../elements";
+import {Grid, Image, Text, Button} from "../elements";
 
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as commentActions} from "../redux/modules/comment";
@@ -21,11 +21,28 @@ const CommentList = (props) => {
     return null;
   }
 
+
+  const commentDel = (comment_id) => {
+    const input = window.confirm("댓글을 삭제할까요?");
+    if(input) {
+      dispatch(commentActions.deleteCommentFB(comment_id));
+    }
+  };
+
   return (
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto'>
         {comment_list[post_id].map(c => {
-          return (<CommentItem key={c.id} {...c}/>);
+          return (
+            <Grid is_flex>
+              <CommentItem key={c.id} {...c}/>
+              <Button width='auto' border='none' _onClick={()=>{
+                commentDel(c.id);
+                }}>
+                <Text size='24px' margin='0'>X</Text>
+              </Button>
+            </Grid>
+          );
         })}
       </Grid>
     </React.Fragment>
@@ -40,6 +57,14 @@ export default CommentList;
 
 const CommentItem = (props) => {
 
+
+  const commentDel = () => {
+    const input = window.confirm("댓글을 삭제할까요?");
+    if(input) {
+
+    }
+  };
+
   const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props;
   return (
     <React.Fragment>
@@ -50,7 +75,12 @@ const CommentItem = (props) => {
         </Grid>
         <Grid is_flex margin="0px 4px">
             <Text margin="0px">{contents}</Text>
-            <Text margin="0px">{insert_dt}</Text>
+            <Grid>
+              <Text margin="0px">{insert_dt}</Text>
+              {/* <Button width='auto' border='none' _onClick={commentDel}>
+                <Text size='24px' margin='0'>X</Text>
+              </Button> */}
+            </Grid>
         </Grid>
       </Grid>
     </React.Fragment>

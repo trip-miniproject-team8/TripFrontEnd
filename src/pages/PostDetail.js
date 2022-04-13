@@ -12,11 +12,12 @@ import post, {actionCreators as postActions} from "../redux/modules/post";
 const PostDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
-  console.log(id);
+
+  // console.log('게시물 아이디', id);
   
   const user_info = useSelector((state) => state.user);
   const post_list = useSelector((state) => state.post.list);
-  // console.log(post_list);
+  console.log('게시물 정보', post_list);
   
   // console.log(post_list[0].id);
   const post_idx = post_list.findIndex(p => p.id == id);
@@ -27,11 +28,12 @@ const PostDetail = (props) => {
   console.log(user_info.username);
   React.useEffect(() => {
 
-    // if(post){
-    //    return; 
-    // }
-    dispatch(postActions.getOnePostFB(id));
-  }, []);
+    console.log('게시물 아이디', id);
+      if(post){
+         return; 
+      }
+      dispatch(postActions.getOnePostFB(id));
+    }, []);
 
 
     return (

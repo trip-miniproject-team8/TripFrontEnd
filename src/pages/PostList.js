@@ -12,6 +12,7 @@ import axios from 'axios';
 const PostList = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
+  // const reverse_list = post_list.reverse();
   const user_info = useSelector((state) => state.user);
   // console.log('test!@#@@', user_info);;
   const is_loading = useSelector((state) => state.user.is_loading);
@@ -27,15 +28,15 @@ const PostList = (props) => {
       dispatch(postActions.getPostFB());
     }
   }, []);
-  api.get('/api/post').then((res)=>{
-    console.log(res);
-    console.log(res.data);
-    // temp_post_list=res.data;
-  })
-  .catch((error)=>{
-    console.log(error);
+  // api.get('/api/post').then((res)=>{
+  //   console.log(res);
+  //   console.log(res.data);
+  //   // temp_post_list=res.data;
+  // })
+  // .catch((error)=>{
+  //   console.log(error);
     
-  })
+  // })
   console.log(post_list);
   console.log(user_info.username);
 

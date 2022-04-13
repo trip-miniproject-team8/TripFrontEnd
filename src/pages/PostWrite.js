@@ -21,9 +21,11 @@ const PostWrite = (props) => {
   
   const {history} = props;
 
-  const _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
-
-  const [contents, setContents] = React.useState(_post ? _post.contents : '');
+  const _post = is_edit ? post_list.find((p) => p.id == post_id) : null;
+  console.log('detail page에서 post_list 확인 : ', post_list);
+  console.log('detail page에서 post_id 확인 : ', post_id);
+  console.log('detail page에서 _post 확인 : ', _post);
+  const [contents, setContents] = React.useState(_post ? _post.content : '');
 
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -34,7 +36,7 @@ const PostWrite = (props) => {
       return;
     } 
     if (is_edit) {
-      dispatch(imageActions.setPreview(_post.image_url));
+      dispatch(imageActions.setPreview(_post.imageUrl));
     }
 
   },[]);
@@ -63,6 +65,9 @@ const PostWrite = (props) => {
         window.alert(error.response.data.errorMessage);
     })
     dispatch(postActions.addPostFB(contents));
+    alert("작성되었습니다!")
+    history.replace('/');
+    window.location.reload();
   }
 
   const editPost = () => {
@@ -86,17 +91,10 @@ const PostWrite = (props) => {
   return (
     <React.Fragment>
       <Grid maxWidth='500px' padding='16px' margin='auto'>
-      {/* <Grid margin='20px auto'> */}
       <Grid padding='16px'>
-        {/* <Text bold size='36px'>
-          {is_edit ? "게시글 수정" : "게시글 작성"}
-        </Text> */}
         <Upload/>
       </Grid>
       <Grid>
-		    {/* <Grid padding='16px'>
-			    <Text margin='0' size='24px' bold>미리보기</Text>
-		    </Grid> */}
         <Grid>
           <Image shape='rectangle' src={preview ? preview : "https://user-images.githubusercontent.com/91959791/162676899-be6a11b1-d103-4d57-89b8-34db876fad6f.png"}/>
         </Grid>
