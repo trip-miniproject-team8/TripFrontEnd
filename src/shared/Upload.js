@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { apis } from "./api";
+import axios from "axios";
 const Upload = (props) => {
     const dispatch = useDispatch();
     const is_uploading = useSelector((state) => state.image.uploading);

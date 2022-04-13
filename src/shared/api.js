@@ -3,7 +3,7 @@ import comment from '../redux/modules/comment';
 axios.defaults.withCredentials = true;
 
 const token = sessionStorage.getItem('token');
-export const api = axios.create({
+const api = axios.create({
     baseURL: 'http://3.35.52.88',
     // headers: {
     //     'content-type': 'application/json;charset=UTF-8',
@@ -13,8 +13,12 @@ export const api = axios.create({
 });
 const apiset = axios.create({
     baseURL: 'http://3.35.52.88',
+    // headers: {
+    //     'content-type': 'application/json;charset=UTF-8',
+	// 	accept: 'application/json,',
+
+    // },
 });
-apiset.defaults.headers.common["Authorization"]=token;
 
 // api.interceptors.request.use(function (config) {
 // 	const accessToken = document.cookie.split('=')[1];
@@ -44,7 +48,7 @@ export const apis={
     // lgout: 
     
     //post
-    Getallpost : () => api.get('api/post'),
+    Getallpost : () => api.get('/api/post'),
     addPost: (file)=>api.post('/api/image',file,{
         headers:{  
             'Content-Type': 'multipart/form-data',

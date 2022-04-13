@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 
 const Post = (props) => {
+  
+  console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
   // console.log(props.src);
 
@@ -17,6 +19,7 @@ const Post = (props) => {
     history.push(`/posting/${props.id}`);
 
   }
+  console.log(props);
 
   return (
     <React.Fragment>
@@ -26,10 +29,10 @@ const Post = (props) => {
           <Grid is_flex>
             <Grid is_flex width='auto'>
               <Image shape='circle' src={props.src} />
-              <Text bold>{props.user_info.user_name}</Text>
+              <Text bold>{props.userNickname}</Text>
             </Grid>
             <Grid is_flex width='auto'>
-              <Text>{props.insert_dt}</Text>
+              <Text>{props.createdAT}</Text>
               {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
                 수정
                 </Button>
@@ -40,14 +43,14 @@ const Post = (props) => {
             </Grid> 
           </Grid>
           <Grid>  
-            <Text>{props.contents}</Text>
+            <Text>{props.content}</Text>
           </Grid> 
         </Grid>
         <Grid _onClick={() => {history.push(`/post/${props.id}`);}}>
-          <Image shape='rectangle' src={props.image_url} />
+          <Image shape='rectangle' src={props.imageUrl} />
         </Grid>
         <Grid width='95%' padding='16px' margin='auto'>
-          <Text margin='0' bold>댓글 {props.comment_cnt}개</Text>        
+          <Text margin='0' bold>댓글 {props.commentCTn}개</Text>        
         </Grid>
       </Grid>
     </React.Fragment>

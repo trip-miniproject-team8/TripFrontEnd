@@ -36,14 +36,13 @@ const initialState = {
 }
 
 const initialPost = {
-  // user_info: {
-  //   id: 0,
-  //   user_name: 'yesleee',
-  //   user_profile: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
-  // },
-  image_url: '',
+  postid:'',
+  username:'',
+  usernickname:'',
+  imageUrl: '',
   contents: '',
-  comment_cnt: 0,
+  commentCnt: 0,
+  createdAt:''
   // insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
 };
 
@@ -103,54 +102,20 @@ const initialPost = {
 // }
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post");
+    const post_list=[];
+    api.get('/api/post').then((res)=>{
+      console.log(res);
 
-    let query = postDB.orderBy("insert_dt", "desc");
-
-    // api
-    //   .get("/api/post").then((res) => {
-    //     console.log("전체 Post list ", res.data);
-    //     let post = {
-    //       user_info, ..._post, id: res.data.id, image_url: _image};
-
-    //     console.log('post작성완료! post : ',post);
-    //     dispatch(addPost(post));
-    //     dispatch(imageActions.setPreview(null));
-    
-    //     window.alert("작성이 완료됐습니다!");
-    //     history.replace('/');
-
-    //   }).catch((error) => {
-    //     console.log("post 추가 오류", error);
-    //   });
-
-    query.get().then(docs => {
-      let post_list = [];
-      docs.forEach((doc) => {
-        let _post = doc.data();
-
-        // ['commenct_cnt', 'contents', ..]
-        let post = Object.keys(_post).reduce(
-          (acc, cur) => {
-            if (cur.indexOf("user_") !== -1) {
-              return {
-                ...acc,
-                user_info: { ...acc.user_info, [cur]: _post[cur] },
-              };
-            }
-            return { ...acc, [cur]: _post[cur] };
-          },
-          { id: doc.id, user_info: {} }
-        );
-
-        post_list.push(post);
-      });
-
-      console.log(post_list);
-
-      dispatch(setPost(post_list));
-    });
-  };
+      console.log(res.data);
+      
+      dispatch(setPost(res.data));
+    })
+    .catch((error)=>{
+      console.log(error);
+      
+    })
+    }
+  
 };
 
 const addPostFB = (contents = '') => {
@@ -158,12 +123,12 @@ const addPostFB = (contents = '') => {
     
     // const postDB = firestore.collection('post');
 
-    const _user = getState().user.user;
+    const _user = getState().user;
     const _image = getState().image.preview; // 파일객체내용을 string으로 가지고 있음
 
     const user_info = {
-      user_name: _user.user_name,
-      user_id: _user.uid,
+      user_name: _user.usernickname,
+      user_id: _user.username,
       user_profile: _user.user_profile,
     };
     console.log('유저정보 :',user_info);
@@ -171,6 +136,7 @@ const addPostFB = (contents = '') => {
 
 
     const _post = {
+
     };
     
   };
@@ -316,6 +282,7 @@ export default handleActions(
       [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
+        console.log(...action.payload.post_list);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),

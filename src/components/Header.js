@@ -34,7 +34,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const token =localStorage.getItem('token');
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector((state) => state.user);
   console.log("로그인한 유저정보 :: ",user_info);
 
   // 여기부터 material-ui code!!
@@ -150,7 +150,7 @@ const Header = (props) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> {user_info.user_name}
+          <Avatar /> {user_info.usernickname}
         </MenuItem>
         <Divider />
         <MenuItem onClick={()=>{

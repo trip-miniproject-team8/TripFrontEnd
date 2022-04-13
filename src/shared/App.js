@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
 
 import {apiKey} from "./firebase";
@@ -16,12 +16,13 @@ import { Grid, Button } from '../elements';
 import Permit from './Permit';
 import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
+import Spinner from './Spinner';
 // import Notification from '../pages/Notification';
 // import { resp } from './Request';
 
 function App() {
   const dispatch = useDispatch();
-  // 서버연결시
+  const is_loaded= useSelector((state)=> state.user.is_loaded);
   const token = localStorage.getItem('token');
   // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   // const is_session = sessionStorage.getItem(_session_key) ? true : false;
@@ -56,7 +57,9 @@ function App() {
       <Permit>
         <Button is_float text='+' _onClick={() => {history.push('/posting');}}></Button>
       </Permit>
-      {/* {!is_loaded && <Spinner />} */}
+      {/* {!is_loaded && <Spinner/>} */}
+
+
     </React.Fragment>
     );
 }
