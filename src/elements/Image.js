@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const Image = (props) => {
 
-  const {shape, src, size} = props;
+  const {shape, src, size, margin} = props;
   const styles = {
     src: src,
     size: size,
+    margin: margin,
   };
 
   if (shape === "rectangle") {
@@ -45,8 +46,9 @@ const Image = (props) => {
 
 Image.defaultProps = {
   shape: "circle",
-  src: "https://tripimage.s3.ap-northeast-2.amazonaws.com/upload/%EC%BF%A8%ED%95%91%ED%81%AC.jpg",
-  size: 36,
+  src: "https://user-images.githubusercontent.com/91959791/163197478-662655f9-a37d-4b46-81f4-97a08e3d2b35.png",
+  size: 40,
+  margin: '4px 10px 4px 4px',
 };
 
 const ImageDefault = styled.div`
@@ -83,7 +85,7 @@ const ImageCircle = styled.div`
   background-image: url('${(props) => props.src}');
   background-size: cover;
   background-position: center;
-  margin: 4px 10px 4px 4px;
+  margin: ${(props) => props.margin};
 `;
 
 export default Image;

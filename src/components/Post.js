@@ -5,22 +5,44 @@ import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 
+// Material ui
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+const options = [
+  '수정하기',
+  '삭제하기',
+];
+
+const ITEM_HEIGHT = 48;
+
 const Post = (props) => {
   
   // console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
-  // console.log(props.src);
-
-  const deletePost = () => {
-      console.log(props.id);
-    dispatch(postActions.deletePostFB(props.id));
-  }
-
-  const editPost = () => {
-    history.push(`/posting/${props.id}`);
-
-  }
+  // const deletePost = () => {
+  //   dispatch(postActions.deletePostFB(props.id));
+  // }
+  // const editPost = () => {
+  //   history.push(`/posting/${props.id}`);
+  // }
   // console.log(props);
+  // material ui
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (option) => {
+    console.log('아이콘 확인!!',option);
+    if (option==='수정하기'){
+      history.push(`/posting/${props.id}`);
+    }else if(option==='삭제하기'){
+      dispatch(postActions.deletePostFB(props.id));
+    }
+    setAnchorEl(null);
+  };
 
   return (
     <React.Fragment>
@@ -33,14 +55,49 @@ const Post = (props) => {
               <Text bold>{props.userNickname}</Text>
             </Grid>
             <Grid is_flex width='auto'>
-              <Text>{props.createdAt}</Text>
-              {props.is_me && <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
-                수정
-                </Button>
-                <Button width='auto' margin='0 0 0 10px' _onClick={deletePost}>
-                삭제
-                </Button>
-                </Grid>}
+              <Text>{props.createdAT}</Text>
+              {props.is_me && 
+                (<div>
+                <IconButton
+                  aria-label="more"
+                  id="long-button"
+                  aria-controls={open ? 'long-menu' : undefined}
+                  aria-expanded={open ? 'true' : undefined}
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="long-menu"
+                  MenuListProps={{
+                    'aria-labelledby': 'long-button',
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  PaperProps={{
+                    style: {
+                      maxHeight: ITEM_HEIGHT * 4.5,
+                      width: '20ch',
+                    },
+                  }}
+                >
+                  {options.map((option) => (
+                    <MenuItem key={option} selected={option === 'Pyxis'} onClick={()=>{handleClose(option)}}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </div>)
+                // <Grid width='auto'><Button width='auto' margin='0 0 0 10px' _onClick={editPost}>
+                // 수정
+                // </Button>
+                // <Button width='auto' margin='0 0 0 10px' _onClick={deletePost}>
+                // 삭제
+                // </Button>
+                // </Grid>
+                }
             </Grid> 
           </Grid>
           <Grid>  

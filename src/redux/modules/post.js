@@ -199,6 +199,8 @@ const editPostFB = (post_id = null, post = {}) => {
 
 const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
+    const _post = getState().post.list;
+    console.log("하나만가져오기",_post)
     const postDB = firestore.collection("post");
     postDB
       .doc(post_id)

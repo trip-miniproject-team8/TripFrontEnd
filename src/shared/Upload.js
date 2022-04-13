@@ -11,7 +11,7 @@ const Upload = (props) => {
     const dispatch = useDispatch();
     const is_uploading = useSelector((state) => state.image.uploading);
     const fileInput = React.useRef();
-
+    const post_id=0;
     const selectFile = (e) => {
 
         const reader = new FileReader();
@@ -27,6 +27,9 @@ const Upload = (props) => {
             .then((res)=>{
                 console.log(formData);
                 console.log(res);
+                console.log(typeof(res.data.postId));
+                post_id=res.data.postId;
+                console.log(post_id);
             })
             .catch((error)=>{
                 console.log(error.response.data.errorMessage);
@@ -34,8 +37,7 @@ const Upload = (props) => {
                 console.log(error.response.headers);
                 console.log(error.response.data);
             // window.alert(error.response.data.errorMessage);  
-
-            })
+            });
     }
 
     const uploadFB = () => {

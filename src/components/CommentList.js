@@ -1,16 +1,16 @@
 import React from "react";
-import {Grid, Image, Text} from "../elements";
+import {Grid, Image, Text, Button} from "../elements";
 
 import {useDispatch, useSelector} from "react-redux";
 import comment, {actionCreators as commentActions} from "../redux/modules/comment";
 
 const CommentList = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
   const comment_list = useSelector(state => state.comment.list);
-  console.log("aklsdfklzkl");
-  console.log(comment_list[4]);
-  // console.log(Object.key(comment_list));
   const {post_id} = props;
+  console.log("aklsdfklzkl");
+  console.log(comment_list[props.post_id]);
 
   React.useEffect(() => {
     if(!comment_list[post_id]){
@@ -25,12 +25,29 @@ const CommentList = (props) => {
     return null;
   }
 
+
+  const commentDel = (comment_id) => {
+    const input = window.confirm("댓글을 삭제할까요?");
+    if(input) {
+      dispatch(commentActions.deleteCommentFB(comment_id));
+    }
+  };
+
   return (
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto'>
         {comment_list[post_id].map(c => {
-          console.log(c.commentId);
-          return (<CommentItem key={c.id} {...c}/>);
+          console.log(c);
+          return (
+            <Grid is_flex>
+              <CommentItem key={c.commentId} {...c}/>
+              <Button width='auto' border='none' _onClick={()=>{
+                commentDel(c.commentId);
+                }}>
+                <Text size='24px' margin='0'>X</Text>
+              </Button>
+            </Grid>
+          );
         })}
       </Grid>
     </React.Fragment>
@@ -44,19 +61,32 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
-  console.log(props);
+  // console.log(props);
 
-  
+
+  const commentDel = () => {
+    const input = window.confirm("댓글을 삭제할까요?");
+    if(input) {
+
+    }
+  };
+
+  console.log(props);
   return (
     <React.Fragment>
       <Grid is_flex>
         <Grid is_flex width="auto">
           <Image shape="circle"/>
-          <Text bold>{props.userNickname}</Text>
+          <Text bold>{props.usernickname}</Text>
         </Grid>
         <Grid is_flex margin="0px 4px">
             <Text margin="0px">{props.comment}</Text>
-            <Text margin="0px">{props.createdAt}</Text>
+            <Grid>
+              <Text margin="0px">{props.createdAt}</Text>
+              {/* <Button width='auto' border='none' _onClick={commentDel}>
+                <Text size='24px' margin='0'>X</Text>
+              </Button> */}
+            </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
@@ -64,10 +94,10 @@ const CommentItem = (props) => {
 }
 
 CommentItem.defaultProps = {
-  user_profile: "",
-  user_name: "mean0",
-  user_id: "",
+  user_profile: "https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png",
+  userNickname: "mean0",
+  username: "",
   post_id: 1,
   contents: "맛있어보이네요!",
-  insert_dt: '2021-01-01 19:00:00'
+  createdAt: '2021-01-01 19:00:00'
 }

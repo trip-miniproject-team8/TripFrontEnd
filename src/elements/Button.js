@@ -47,11 +47,11 @@ const ElButton = styled.button`
   color: ${(props) => props.color};
   outline: none;
   box-sizing: border-box;
+  font-size: 16px;
   border: ${(props) => props.border};
   ${(props) => (props.borderRadius ? `border-radius: ${props.borderRadius};` : '')}
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')} 
   &:hover {
-    text-decoration: underline;
     font-weight: 700;
     cursor: pointer;
   }
@@ -74,6 +74,9 @@ const FloatButton =  styled.button`
   border-radius: 50px;
   position: fixed;
   z-index: 1;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Button;
