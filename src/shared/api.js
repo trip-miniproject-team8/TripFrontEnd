@@ -61,7 +61,7 @@ export const apis={
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     }),
-    detailGet: (id) =>api.get('api/post/{postid}'),
+    detailGet: (postid) =>api.get(`api/post/${postid}`),
 
     //comment
     addComment: (postId, contents)=> api.post('api/comment/{postId}'),
