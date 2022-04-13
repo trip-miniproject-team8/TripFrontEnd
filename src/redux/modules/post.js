@@ -6,6 +6,7 @@ import moment from 'moment';
 // 서버와 연결
 import axios from "axios";
 import api from "../../shared/Request";
+import { apis } from '../../shared/api';
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 import {actionCreators as imageActions} from "./image";
@@ -35,14 +36,13 @@ const initialState = {
 }
 
 const initialPost = {
-  // user_info: {
-  //   id: 0,
-  //   user_name: 'yesleee',
-  //   user_profile: 'https://user-images.githubusercontent.com/91959791/161682922-347edc18-3711-4108-b9d1-26b51a41447c.jpg',
-  // },
-  image_url: '',
+  postid:'',
+  username:'',
+  usernickname:'',
+  imageUrl: '',
   contents: '',
-  comment_cnt: 0,
+  commentCnt: 0,
+  createdAt:''
   // insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
 };
 
@@ -105,17 +105,15 @@ const getPostFB = () => {
     const post_list=[];
     api.get('/api/post').then((res)=>{
       console.log(res);
+
       console.log(res.data);
+      
       dispatch(setPost(res.data));
     })
     .catch((error)=>{
       console.log(error);
       
     })
-
-        
-
-      // dispatch(setPost(post_list));
     }
   
 };
@@ -125,18 +123,22 @@ const addPostFB = (contents = '') => {
     
     // const postDB = firestore.collection('post');
 
-    const _user = getState().user.user;
+    const _user = getState().user;
     const _image = getState().image.preview; // 파일객체내용을 string으로 가지고 있음
 
     const user_info = {
-      user_name: _user.user_name,
-      user_id: _user.uid,
+      user_name: _user.usernickname,
+      user_id: _user.username,
       user_profile: _user.user_profile,
     };
+    console.log('유저정보 :',user_info);
+    console.log('이미지확인 :',_image);
+
 
     const _post = {
 
     };
+    
   };
 
 };
@@ -195,11 +197,11 @@ const editPostFB = (post_id = null, post = {}) => {
 }
 
 
-const getOnePostFB = (id) => {
+const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
     const postDB = firestore.collection("post");
     postDB
-      .doc(id)
+      .doc(post_id)
       .get()
       .then((doc) => {
         let _post = doc.data();
@@ -229,20 +231,26 @@ const getOnePostFB = (id) => {
  
 const deletePostFB = (post_id = null) => {
   return function (dispatch, getState, { history }) {
-    // const _image = getState().image.preview;
-    // console.log(post_id);
+    if(!post_id) {
+      window.alert("게시물 정보가 없어요!");
+      return;
+    }
+    const token = sessionStorage.getItem('token');
+    apis.delPost(post_id)
+      .then((res)=>{
+        console.log('게시물 삭제 후 전달된 데이터! :', res);
+        window.alert("삭제가 완료되었습니다!");
+        dispatch(deletePost(post_id));
+        history.replace("/");
+      })
+      .catch((error)=>{
+        console.log('게시물 삭제중 오류!', error);
+        // console.log(error.response.data.errorMessage);
+      })
 
     // const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     // const _post = getState().post.list[_post_idx];
     // console.log(_post);
-    const postDB = firestore.collection("post");
-    postDB.doc(post_id).delete().then(() => {
-      console.log('삭제 성공!');
-      dispatch(deletePost(post_id));
-      history.replace("/");
-    }).catch((error) => {
-      console.log('error!', error);
-    });
 
 };
 };
@@ -274,6 +282,7 @@ export default handleActions(
       [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
+        console.log(...action.payload.post_list);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),

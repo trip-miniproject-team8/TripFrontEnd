@@ -12,8 +12,8 @@ import axios from 'axios';
 const PostList = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
-  const user_info = useSelector((state) => state.user.user);
-  console.log('test!@#@@', user_info);;
+  const user_info = useSelector((state) => state.user);
+  // console.log('test!@#@@', user_info);;
   const is_loading = useSelector((state) => state.user.is_loading);
   const paging = useSelector((state) => state.post.paging);
 
@@ -36,9 +36,11 @@ const PostList = (props) => {
     console.log(error);
     
   })
-
   console.log(post_list);
-  console.log(temp_post_list);
+  console.log(user_info.username);
+
+  // console.log(post_list);
+  // console.log(temp_post_list);
   return (
     <React.Fragment>
       {/* <InfinityScroll callNext={() => {  //무한스크롤
@@ -48,7 +50,8 @@ const PostList = (props) => {
         is_next={paging.next? true : false}
         loading={is_loading}> */}
         {post_list.map((p, idx) => {
-          if(user_info&&p.username===user_info.id){
+          if(user_info&&p.username===user_info.username){
+            console.log(idx);
             console.log(p);
             console.log(p.username);
             console.log(user_info);

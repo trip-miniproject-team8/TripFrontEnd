@@ -32,8 +32,10 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 
 // initialState
 const initialState = {
+  username:'',
+  usernickname:'',
+  user_profile:'',
   is_loaded: false,
-  user: null,
   is_login: false,
 };
 
@@ -59,10 +61,9 @@ const loginFB = (id, pwd) => {
         // const user_info = res.config.data;
         
         dispatch(setUser({
-          id: user_info.USER_NAME,  // 형식은 모르지만 일단..
-          user_name: user_info.NICK_NAME,  // 형식은 모르지만 일단..
+          id: user_info.USER_NAME,  
+          user_name: user_info.NICK_NAME,  
           user_profile: "https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png"
-          // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
         }))
         setCookie("is_login", "success"); // 토큰 여기 들어가야함
         localStorage.setItem("token", token); // 쿠키랑 로컬스토리지 둘중 하나만해도되면 토큰 여기에 저장
@@ -116,12 +117,12 @@ const loginCheckFB = () => {
           const user_info = JSON.parse(jsonPayload);
           console.log('로그인정보 :', user_info);
           const _user = getState().user;
-          console.log('유저정보11111 :', token);
+          console.log(_user);
+          // console.log('유저정보11111 :', token);
           dispatch(setUser({
-            id: user_info.USER_NAME,  
-            user_name: user_info.NICK_NAME,  
+            username: user_info.USER_NAME,  
+            usernickname: user_info.NICK_NAME,  
             user_profile: "https://user-images.githubusercontent.com/91959791/162985545-26ce4013-8004-4211-9948-c616aab0182a.png"
-            // uid: user.uid, // 임의아이디(유저고유아이디) 있어야하는지 체크
           }))
           
         } else {
@@ -149,10 +150,13 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         console.log('set user!!! ', action.payload.user);
-        draft.user = action.payload.user;
+        draft.username = action.payload.user.username;
+        draft.usernickname=action.payload.user.usernickname;
+        draft.user_profile=action.payload.user.user_profile;
 				draft.is_login = true;
         draft.is_loaded = true;
-        console.log('set user22!!! ', draft.user);
+        console.log(action);
+        console.log('set user22!!! ');
       }),
 		[LOG_OUT]: (state, action) =>
       produce(state, (draft) => {

@@ -39,7 +39,6 @@ const Upload = (props) => {
         console.log(error.response.data);
         // window.alert(error.response.data.errorMessage);
         })
-        
     }
 
     const uploadFB = () => {
@@ -48,7 +47,7 @@ const Upload = (props) => {
         dispatch(imageActions.uploadImageFB(image));
     }
 
-    
+
     return (
         <React.Fragment>
             <input id='input-image' onChange={selectFile} type="file" ref={fileInput} disabled={is_uploading}/>

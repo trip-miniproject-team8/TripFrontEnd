@@ -7,23 +7,29 @@ import Permit from '../shared/Permit';
 import { Grid } from '../elements';
 
 import { useSelector, useDispatch } from "react-redux";
-import {actionCreators as postActions} from "../redux/modules/post";
+import post, {actionCreators as postActions} from "../redux/modules/post";
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
-
-  const user_info = useSelector((state) => state.user.user);
-  const post_list = useSelector(store => store.post.list);
-  const post_idx = post_list.findIndex(p => p.id === id);
+  console.log(id);
+  
+  const user_info = useSelector((state) => state.user);
+  const post_list = useSelector((state) => state.post.list);
+  // console.log(post_list);
+  
+  // console.log(post_list[0].id);
+  const post_idx = post_list.findIndex(p => p.id == id);
+  // console.log(post_idx);
   const post = post_list[post_idx];
-
-
+  console.log(post);
+  console.log(post.username);
+  console.log(user_info.username);
   React.useEffect(() => {
 
-    if(post){
-       return; 
-    }
+    // if(post){
+    //    return; 
+    // }
     dispatch(postActions.getOnePostFB(id));
   }, []);
 
@@ -32,7 +38,7 @@ const PostDetail = (props) => {
         <React.Fragment>
           <Grid  border='1px solid #ccc' margin='20px auto'>
             {post && (
-              <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
+              <Post {...post} is_me={post.username === user_info.username} />
             )}
             <Permit>
               <CommentWrite post_id={id}/>

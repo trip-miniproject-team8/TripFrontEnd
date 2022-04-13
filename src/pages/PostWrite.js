@@ -62,7 +62,6 @@ const PostWrite = (props) => {
         console.log(error.response.data);
         window.alert(error.response.data.errorMessage);
     })
-    
     dispatch(postActions.addPostFB(contents));
   }
 
@@ -86,7 +85,9 @@ const PostWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Grid padding='16px'>
+
+<Grid  border='1px solid #ccc' margin='20px auto'>
+      <Grid padding='16px'> 
         <Text bold size='36px'>
           {is_edit ? "게시글 수정" : "게시글 작성"}
         </Text>
@@ -110,7 +111,7 @@ const PostWrite = (props) => {
           )}
         </Grid>
 	    </Grid>	
-	  
+      </Grid>
     </React.Fragment>
   );
 }
