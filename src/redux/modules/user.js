@@ -91,9 +91,12 @@ const signupFB = (id, usernickname, pwd, pwcheck) => {
         window.alert("환영합니다!\n회원가입이 완료되셨습니다");
         history.replace('/'); // 로그인창으로 이동
       })
-      .catch((errMessage)=>{
-        console.log("회원가입 오류", errMessage);
-        window.alert("회원가입 오류");
+      .catch((error)=>{
+        console.log(error.response.data.errorMessage);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        console.log(error.response.data);
+        window.alert(error.response.data.errorMessage);
       })
 
   }

@@ -167,41 +167,8 @@ const addPostFB = (contents = '') => {
     };
 
     const _post = {
-      ...initialPost,
-      contents: contents,
-      // insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
     };
-    // console.log(typeof _image); 
-    // const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, "data_url");
-    api
-      .post("/api/image", {
-        data: {imageUrl: _image,},
-        headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
-      }).then((res) => {
-        api
-          .post("/api/post", {
-            data: {content: contents,},
-            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
-          }).then((res) => {
-
-            console.log(res.request);
-            let post = {
-              user_info, ..._post, id: res.data.id, image_url: _image};
-
-            console.log('post작성완료! post : ',post);
-            dispatch(addPost(post));
-            dispatch(imageActions.setPreview(null));
-        
-            window.alert("작성이 완료됐습니다!");
-            history.replace('/');
-
-          }).catch((error) => {
-            console.log("post 추가 오류", error);
-          });
-
-      }).catch((error) => {
-        console.log("img 업로드 오류", error);
-      });
+    
   };
 
 };

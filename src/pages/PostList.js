@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {actionCreators as postActions} from '../redux/modules/post';
 import InfinityScroll from '../shared/InfinityScroll';
 import {Grid} from "../elements";
-
+import { api } from '../shared/api';
+import { apis } from '../shared/api';
+import axios from 'axios';
 const PostList = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
@@ -18,11 +20,21 @@ const PostList = (props) => {
   const {history} = props;
 
   React.useEffect(() => {
+
     if(post_list.length < 2) {
       dispatch(postActions.getPostFB());
     }
   }, []);
-
+  api.get('/api/post').then((res)=>{
+    console.log(res);
+  })
+  .catch((error)=>{
+    // console.log(error.response.data.errorMessage);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      console.log(error.response.data);
+      // window.alert(error.response.data.errorMessage);
+  })
   // console.log(post_list)
   return (
     <React.Fragment>
