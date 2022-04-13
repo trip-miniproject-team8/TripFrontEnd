@@ -6,6 +6,7 @@ import moment from 'moment';
 // 서버와 연결
 import axios from "axios";
 import api from "../../shared/Request";
+import { apis } from '../../shared/api';
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 import {actionCreators as imageActions} from "./image";
@@ -165,6 +166,9 @@ const addPostFB = (contents = '') => {
       user_id: _user.uid,
       user_profile: _user.user_profile,
     };
+    console.log('유저정보 :',user_info);
+    console.log('이미지확인 :',_image);
+
 
     const _post = {
     };
@@ -227,11 +231,11 @@ const editPostFB = (post_id = null, post = {}) => {
 }
 
 
-const getOnePostFB = (id) => {
+const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
     const postDB = firestore.collection("post");
     postDB
-      .doc(id)
+      .doc(post_id)
       .get()
       .then((doc) => {
         let _post = doc.data();
@@ -261,20 +265,26 @@ const getOnePostFB = (id) => {
  
 const deletePostFB = (post_id = null) => {
   return function (dispatch, getState, { history }) {
-    // const _image = getState().image.preview;
-    // console.log(post_id);
+    if(!post_id) {
+      window.alert("게시물 정보가 없어요!");
+      return;
+    }
+    const token = sessionStorage.getItem('token');
+    apis.delPost(post_id)
+      .then((res)=>{
+        console.log('게시물 삭제 후 전달된 데이터! :', res);
+        window.alert("삭제가 완료되었습니다!");
+        dispatch(deletePost(post_id));
+        history.replace("/");
+      })
+      .catch((error)=>{
+        console.log('게시물 삭제중 오류!', error);
+        // console.log(error.response.data.errorMessage);
+      })
 
     // const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     // const _post = getState().post.list[_post_idx];
     // console.log(_post);
-    const postDB = firestore.collection("post");
-    postDB.doc(post_id).delete().then(() => {
-      console.log('삭제 성공!');
-      dispatch(deletePost(post_id));
-      history.replace("/");
-    }).catch((error) => {
-      console.log('error!', error);
-    });
 
 };
 };

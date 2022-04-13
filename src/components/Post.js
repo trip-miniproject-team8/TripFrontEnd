@@ -10,12 +10,10 @@ const Post = (props) => {
   // console.log(props.src);
 
   const deletePost = () => {
-    alert('삭제할거야?');
     dispatch(postActions.deletePostFB(props.id));
   }
 
   const editPost = () => {
-    alert('수정할거야?');
     history.push(`/posting/${props.id}`);
 
   }
