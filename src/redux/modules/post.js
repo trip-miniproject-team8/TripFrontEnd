@@ -200,7 +200,7 @@ const editPostFB = (post_id = null, post = {}) => {
 const getOnePostFB = (post_id) => {
   return function(dispatch, getState, {history}){
 
-    apis.detailGet(post_id)
+    apis.GetComment(post_id)
       .then((res)=>{
         console.log('하나의 게시물 데이터! :', res);
         dispatch(setPost([res.data]));

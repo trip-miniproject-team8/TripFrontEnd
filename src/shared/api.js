@@ -62,7 +62,6 @@ export const apis={
         }
     }),
     GetComment: (postid) =>api.get(`api/post/${postid}`),
-    detailGet: (postid) =>api.get(`api/post/${postid}`),
 
     //comment
     addComment: (postId, contents)=> api.post(`api/comment/${postId}`,{comment:contents},{

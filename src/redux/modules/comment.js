@@ -120,7 +120,7 @@ export default handleActions(
       }),
       
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
-        draft.list[action.payload.post_id].unshift(action.payload.comment);
+        draft.list[action.payload.post_id].push(action.payload.comment);
         console.log(action.payload.comment)
         console.log('addtest');
       }),

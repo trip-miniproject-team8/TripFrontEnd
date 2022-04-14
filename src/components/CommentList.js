@@ -38,7 +38,7 @@ const CommentList = (props) => {
   return (
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto'>
-        {comment_list[post_id].comments.map(c => {
+        {comment_list[post_id].map(c => {
           console.log(c);
           return (
             <Grid is_flex>
