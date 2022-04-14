@@ -209,35 +209,35 @@ const getOnePostFB = (post_id) => {
         console.log('게시물 하나 가져오기 오류!', error);
         // console.log(error.response.data.errorMessage);
       })
-    return;
-    const _post = getState().post.list;
-    console.log("하나만가져오기",_post)
-    const postDB = firestore.collection("post");
-    postDB
-      .doc(post_id)
-      .get()
-      .then((doc) => {
-        let _post = doc.data();
+      
+    // const _post = getState().post.list;
+    // console.log("하나만가져오기",_post)
+    // const postDB = firestore.collection("post");
+    // postDB
+    //   .doc(post_id)
+    //   .get()
+    //   .then((doc) => {
+    //     let _post = doc.data();
 
-        if (!_post) {
-          return;
-        }
+    //     if (!_post) {
+    //       return;
+    //     }
 
-        let post = Object.keys(_post).reduce(
-          (acc, cur) => {
-            if (cur.indexOf("user_") !== -1) {
-              return {
-                ...acc,
-                user_info: { ...acc.user_info, [cur]: _post[cur] },
-              };
-            }
-            return { ...acc, [cur]: _post[cur] };
-          },
-          { id: doc.id, user_info: {} }
-        );
-        dispatch(setPost([post], { start: null, next: null, size: 3 }));
-        // dispatch(setPost([post]));
-      });
+    //     let post = Object.keys(_post).reduce(
+    //       (acc, cur) => {
+    //         if (cur.indexOf("user_") !== -1) {
+    //           return {
+    //             ...acc,
+    //             user_info: { ...acc.user_info, [cur]: _post[cur] },
+    //           };
+    //         }
+    //         return { ...acc, [cur]: _post[cur] };
+    //       },
+    //       { id: doc.id, user_info: {} }
+    //     );
+    //     dispatch(setPost([post], { start: null, next: null, size: 3 }));
+    //     // dispatch(setPost([post]));
+    //   });
   }
 }
 

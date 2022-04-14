@@ -23,7 +23,7 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: {},
-  is_loading: false,
+  // is_loading: false,
 };
 
 const addCommentFB = (post_id, contents) => {
@@ -73,17 +73,18 @@ const getCommentFB = (post_id = null) => {
       }
       apis.GetComment(post_id)
       .then((res)=>{
-        console.log('댓글불러오기 요청성공');
+        console.log('댓글불러오기 요청성공 ::', res.data);
         const temp=res.data.comments;
         temp.forEach(element => {
           comment_list.push(element)
         });
         console.log('temps type',comment_list);
         dispatch(setComment(post_id,comment_list));
+        // dispatch(setComment(post_id,res.data));
 
       })
       .catch((error)=>{
-        console.log(error);
+        console.log('댓글 조회 오류 :: ',error);
 
       });
     }
@@ -113,8 +114,9 @@ const deleteCommentFB = (comment_id = null) => {
 export default handleActions(
   {
       [SET_COMMENT]: (state, action) => produce(state, (draft) => {
+        console.log("리듀서 확인 1 :: ",action.payload);
         draft.list[action.payload.post_id] = action.payload.comment_list;
-        console.log(draft.list[action.payload.post_id]);
+        console.log("리듀서 확인 :: ",draft.list[action.payload.post_id]);
       }),
       
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
