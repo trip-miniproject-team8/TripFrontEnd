@@ -57,7 +57,7 @@ function App() {
       <Permit>
         <Button is_float text='+' _onClick={() => {history.push('/posting');}}></Button>
       </Permit>
-      {!is_loaded && <Spinner/>}
+      {/* {!is_loaded && <Spinner/>} */}
 
 
     </React.Fragment>
