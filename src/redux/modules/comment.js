@@ -18,12 +18,12 @@ const LOADING = "LOADING";
 
 const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({post_id, comment_list}));
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, comment}));
-const deleteComment = createAction(DELETE_COMMENT, (comment_id,comment_list) => ({comment_id,comment_list}));
+const deleteComment = createAction(DELETE_COMMENT, (post_id, comment_idx) => ({post_id, comment_idx}));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: {},
-  is_loading: false,
+  // is_loading: false,
 };
 
 const addCommentFB = (post_id, contents) => {
@@ -73,23 +73,24 @@ const getCommentFB = (post_id = null) => {
       }
       apis.GetComment(post_id)
       .then((res)=>{
-        console.log('댓글불러오기 요청성공');
+        console.log('댓글불러오기 요청성공 ::', res.data);
         const temp=res.data.comments;
         temp.forEach(element => {
           comment_list.push(element)
         });
         console.log('temps type',comment_list);
         dispatch(setComment(post_id,comment_list));
+        // dispatch(setComment(post_id,res.data));
 
       })
       .catch((error)=>{
-        console.log(error);
+        console.log('댓글 조회 오류 :: ',error);
 
       });
     }
 }
 
-const deleteCommentFB = (comment_id = null) => {
+const deleteCommentFB = (post_id=null, comment_id = null) => {
   return function (dispatch, getState, { history }) {
     if(!comment_id) {
       window.alert("댓글 정보가 없어요!");
@@ -99,10 +100,18 @@ const deleteCommentFB = (comment_id = null) => {
     console.log(_comment);
     apis.delComment(comment_id)
       .then((res)=>{
+        const _comment = getState().comment.list;
         console.log('댓글 삭제 후 전달된 데이터! :', res);
+        console.log('댓글 삭제 후 전달된 데이터! :', _comment);
         window.alert("삭제가 완료되었습니다!");
-        dispatch(deleteComment(comment_id,_comment));
-        history.replace("/");
+        const comment_idx = _comment[post_id].findIndex((c) => {
+          return parseInt(c.commentId) === parseInt(comment_id);
+        })
+
+        console.log('댓글 삭제 후 전달된 데이터! :', comment_idx);
+
+        dispatch(deleteComment(post_id, comment_idx));
+        // history.replace("/");
       })
       .catch((error)=>{
         console.log('댓글 삭제중 오류!', error);
@@ -115,8 +124,9 @@ const deleteCommentFB = (comment_id = null) => {
 export default handleActions(
   {
       [SET_COMMENT]: (state, action) => produce(state, (draft) => {
+        console.log("리듀서 확인 1 :: ",action.payload);
         draft.list[action.payload.post_id] = action.payload.comment_list;
-        console.log(draft.list[action.payload.post_id]);
+        console.log("리듀서 확인 :: ",draft.list[action.payload.post_id]);
       }),
       
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
@@ -125,14 +135,12 @@ export default handleActions(
         console.log('addtest');
       }),
       [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
-        console.log('deletecheck');
-        console.log(action.payload.list);
-        console.log(draft.list);
-        draft.list = draft.list.filter((p) => {
-          console.log(p);
-          console.log(p.commentId);
-          return(p.commentId !== action.payload.comment_id);}
-        );
+        const new_comment_list = draft.list[action.payload.post_id].filter((c, i) => {
+          return parseInt(action.payload.comment_idx) !== i;
+        })
+    
+        draft.list[action.payload.post_id] = new_comment_list;
+        // draft.list = draft.list.filter((p) => p.id !== action.payload.comment_id);
       }),
       [LOADING]: (state, action) => 
       produce(state, (draft) => {

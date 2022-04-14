@@ -209,7 +209,7 @@ const getOnePostFB = (post_id) => {
         console.log('게시물 하나 가져오기 오류!', error);
         // console.log(error.response.data.errorMessage);
       })
-    return;
+      
     // const _post = getState().post.list;
     // console.log("하나만가져오기",_post)
     // const postDB = firestore.collection("post");
