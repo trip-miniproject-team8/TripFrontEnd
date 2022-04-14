@@ -64,9 +64,13 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
-  console.log(props);
+  const creatAt = props.createdAt;
 
+  const postSTimeList = creatAt.split('T');
+  const postSDay = postSTimeList[0].split('-').join('/');
 
+  const postSTime = postSTimeList[1].split(':');
+  const time = `${postSDay} ${postSTime[0]}:${postSTime[1]}`;
 
   // console.Console(props);
   return (
@@ -76,14 +80,11 @@ const CommentItem = (props) => {
           <Image shape="circle"/>
           <Text bold>{props.userNickname}</Text>
         </Grid>
-        <Grid is_flex margin="0px 4px">
+        <Grid is_flex margin="0px 25px">
             <Text margin="0px">{props.comment}</Text>
-            <Grid>
-              <Text margin="0px">{props.createdAt}</Text>
-              {/* <Button width='auto' border='none' _onClick={commentDel}>
-                <Text size='24px' margin='0'>X</Text>
-              </Button> */}
-            </Grid>
+        </Grid>
+        <Grid width='auto' margin='0 10px'>
+          <Text margin="0px" right>{time}</Text>
         </Grid>
       </Grid>
     </React.Fragment>
@@ -96,5 +97,5 @@ CommentItem.defaultProps = {
   username: "",
   post_id: 1,
   contents: "맛있어보이네요!",
-  createdAt: '2021-01-01 19:00:00'
+  createdAt: '2021/01/01 19:00:00'
 }
