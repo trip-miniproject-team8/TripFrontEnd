@@ -25,6 +25,8 @@ const Post = (props) => {
   const postSTime = postSTimeList[1].split(':');
   const time = `${postSDay}\n${postSTime[0]}:${postSTime[1]}`;
 
+  const token = localStorage.getItem('token');
+
   // material ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -95,7 +97,10 @@ const Post = (props) => {
           </Grid> 
         </Grid>
         <Grid _onClick={() => {
-          if (!props.postId){
+          if (!token) {
+            alert("게시물을 확인하려면 로그인이 필요합니다!")
+            history.push('/login');
+          } else if (!props.postId){
             history.push(`/post/${props.id}`);
             }}}>
           <Image shape='rectangle' src={props.imageUrl} />
