@@ -32,7 +32,7 @@ const initialState = {
   // is_loaded: false,
   list: [],
   // paging: { start: null, next: null, size: 3 },
-  // is_loading: false,
+  is_loading: false,
 }
 
 const initialPost = {

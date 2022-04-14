@@ -9,7 +9,7 @@ import { Grid } from '../elements';
 import { useSelector, useDispatch } from "react-redux";
 import post, {actionCreators as postActions} from "../redux/modules/post";
 
-const PostDetail = (props) => {
+  const PostDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.id;
   
@@ -19,6 +19,7 @@ const PostDetail = (props) => {
   
   // const user_info = useSelector((state) => state.user);
   const post_list = useSelector((store) => store.post.list);
+  const userinfo = useSelector((state)=>state.user);
   const token = localStorage.getItem('token');
 
   const base64Url = token.split('.')[1];
@@ -27,6 +28,7 @@ const PostDetail = (props) => {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
   const user_info = JSON.parse(jsonPayload);
+  console.log(userinfo);
 
   
   // console.log(post_list[0].id);
@@ -50,7 +52,7 @@ const PostDetail = (props) => {
       dispatch(postActions.getOnePostFB(id));
     }, []);
 
-
+    console.log(user_info);
     return (
         <React.Fragment>
           <Grid  border='1px solid #ccc' margin='20px auto'>
