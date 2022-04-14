@@ -9,7 +9,7 @@ const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector(state => state.comment.list);
   const {post_id} = props;
-  // console.log(comment_list);
+  console.log('comment ::', comment_list);
   // console.log("aklsdfklzkl");
   // console.log(comment_list);
 
@@ -31,7 +31,8 @@ const CommentList = (props) => {
   const commentDel = (comment_id) => {
     const input = window.confirm("댓글을 삭제할까요?");
     if(input) {
-      dispatch(commentActions.deleteCommentFB(comment_id));
+      console.log(comment_id);
+      dispatch(commentActions.deleteCommentFB(post_id, comment_id));
     }
   };
 
@@ -39,7 +40,7 @@ const CommentList = (props) => {
     <React.Fragment>
       <Grid width='95%' padding='16px' margin='auto'>
         {comment_list[post_id].map(c => {
-          console.log(c);
+          console.log(c.commentId);
           return (
             <Grid is_flex>
               <CommentItem key={c.commentId} {...c}/>
@@ -67,12 +68,6 @@ const CommentItem = (props) => {
   // console.log(props);
 
 
-  const commentDel = () => {
-    const input = window.confirm("댓글을 삭제할까요?");
-    if(input) {
-
-    }
-  };
 
   console.log(props);
   return (

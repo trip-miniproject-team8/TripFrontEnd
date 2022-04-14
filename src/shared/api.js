@@ -69,7 +69,12 @@ export const apis={
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     }),
-    delComment: (commentId) => api.delete('api/comment/{commentId}'),
+
+    delComment: (commentId) => api.delete(`api/comment/${commentId}`,{
+        headers:{  
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }),
     
     //
 }
