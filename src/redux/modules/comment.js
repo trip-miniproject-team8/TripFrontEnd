@@ -115,6 +115,7 @@ const deleteCommentFB = (post_id=null, comment_id = null) => {
       })
       .catch((error)=>{
         console.log('댓글 삭제중 오류!', error);
+        alert(error.response.data.errorMessage);
       })
 
 };

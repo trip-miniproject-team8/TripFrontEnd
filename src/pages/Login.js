@@ -30,12 +30,12 @@ const Login = (props) => {
       <Grid width='95%' padding='16px' margin='auto'>
         <Text bold size="32px">login</Text>
         <Grid padding='16px 0 0'>
-          <Input label='ID' placeholder='Enter your ID.' _onChange={(e) => {
+          <Input label='아이디' placeholder='아이디를 입력해주세요.' _onChange={(e) => {
             setId(e.target.value);
           }}/>
         </Grid>
         <Grid padding='16px 0 25px'>
-          <Input label='Password' type='password' placeholder='Enter your password.' _onChange={(e) => {
+          <Input label='비밀번호' type='password' placeholder='비밀번호를 입력해주세요.' _onChange={(e) => {
             setPwd(e.target.value);
           }}/>
         </Grid>

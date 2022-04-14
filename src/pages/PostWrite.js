@@ -22,9 +22,8 @@ const PostWrite = (props) => {
   const {history} = props;
 
   const _post = is_edit ? post_list.find((p) => p.id == post_id) : null;
-  // console.log(post_list);
   // console.log(post_id);
-  const [contents, setContents] = React.useState(_post ? _post.contents : '');
+  const [contents, setContents] = React.useState(_post ? _post.content : '');
 
   const [newPostId, setNewPostId]= React.useState('');
   React.useEffect(() => {

@@ -72,7 +72,7 @@ const loginFB = (id, pwd) => {
         window.location.reload();
         }).catch((err)=>{
           console.log("로그인 오류", err);
-          window.alert("로그인 오류");
+          window.alert("일치하는 회원이 없습니다!!\n아이디와 비밀번호를 다시 확인해주세요! :)");
           window.location.reload();
         
       });

@@ -18,20 +18,13 @@ const options = [
 const ITEM_HEIGHT = 48;
 
 const Post = (props) => {
-
-  // const id = props.match.params.id;
-  
-  // console.log("게시글에서 props 확인",props.postId);
-  
-  // console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
-  // const deletePost = () => {
-  //   dispatch(postActions.deletePostFB(props.id));
-  // }
-  // const editPost = () => {
-  //   history.push(`/posting/${props.id}`);
-  // }
-  // console.log("넘어온것 ", props);
+  
+  const postSTimeList = props.createdAt.split('T');
+  const postSDay = postSTimeList[0].split('-').join('/');
+  const postSTime = postSTimeList[1].split(':');
+  const time = `${postSDay}\n${postSTime[0]}:${postSTime[1]}`;
+
   // material ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -59,7 +52,7 @@ const Post = (props) => {
               <Text bold>{props.userNickname}</Text>
             </Grid>
             <Grid is_flex width='auto'>
-              <Text>{props.createdAT}</Text>
+              <Text>{time}</Text>
               {props.is_me && 
                 (<div>
                 <IconButton
@@ -97,7 +90,7 @@ const Post = (props) => {
                 }
             </Grid> 
           </Grid>
-          <Grid>  
+          <Grid margin='0 0 0 5px'>  
             <Text>{props.content}</Text>
           </Grid> 
         </Grid>
@@ -107,7 +100,7 @@ const Post = (props) => {
             }}}>
           <Image shape='rectangle' src={props.imageUrl} />
         </Grid>
-        <Grid width='95%' padding='16px' margin='auto'>
+        <Grid padding='16px' margin='auto'>
           <Text margin='0' bold>댓글 {props.commentCtn}개</Text>        
         </Grid>
       </Grid>

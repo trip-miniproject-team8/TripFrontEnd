@@ -20,6 +20,7 @@ const CommentWrite = (props) => {
     // }
     dispatch(commentActions.addCommentFB(post_id, comment_text));
     setCommentText('');
+    window.location.reload();
   }
 
   return (
