@@ -55,21 +55,32 @@ export const apis={
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     }),
-    // editPost: (id, contents)=>api.post('api/post/{postid}', contents) //이미지 보내는법 확인
+    editPost: (postId,file)=>api.put(`/api/image/${postId}`, file,{
+        headers:{  
+            'Content-Type': 'multipart/form-data',
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }), //이미지 보내는법 확인
+    
+    
     delPost: (postid)=> api.delete(`api/post/${postid}`,{
         headers:{  
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     }),
     GetComment: (postid) =>api.get(`api/post/${postid}`),
-
+    
     //comment
     addComment: (postId, contents)=> api.post(`api/comment/${postId}`,{comment:contents},{
         headers:{  
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     }),
-    delComment: (commentId) => api.delete('api/comment/{commentId}'),
+    delComment: (commentId) => api.delete(`api/comment/${commentId}`,{
+        headers:{  
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }),
     
     //
 }

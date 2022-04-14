@@ -24,7 +24,7 @@ const PostList = (props) => {
     
 
     if(post_list.length < 2) {
-      console.log("test1");
+      // console.log("test1");
       dispatch(postActions.getPostFB());
     }
   }, []);
@@ -37,8 +37,8 @@ const PostList = (props) => {
   //   console.log(error);
     
   // })
-  console.log(post_list);
-  console.log(user_info.username);
+  // console.log(post_list);
+  // console.log(user_info.username);
 
   // console.log(post_list);
   // console.log(temp_post_list);

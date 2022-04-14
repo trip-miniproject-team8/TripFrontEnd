@@ -13,7 +13,7 @@ import post, {actionCreators as postActions} from "../redux/modules/post";
   const dispatch = useDispatch();
   const id = props.match.params.id;
   
-  console.log("디테일에서 확인",props);
+  // console.log("디테일에서 확인",props);
 
   // console.log('게시물 아이디', id);
   
@@ -28,7 +28,7 @@ import post, {actionCreators as postActions} from "../redux/modules/post";
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
   const user_info = JSON.parse(jsonPayload);
-  console.log(userinfo);
+  // console.log(userinfo);
 
   
   // console.log(post_list[0].id);

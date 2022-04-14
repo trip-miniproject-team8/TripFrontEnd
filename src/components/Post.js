@@ -21,7 +21,7 @@ const Post = (props) => {
 
   // const id = props.match.params.id;
   
-  console.log("게시글에서 props 확인",props.postId);
+  // console.log("게시글에서 props 확인",props.postId);
   
   // console.log("In Post is_me",props.is_me);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Post = (props) => {
   // const editPost = () => {
   //   history.push(`/posting/${props.id}`);
   // }
-  console.log("넘어온것 ", props);
+  // console.log("넘어온것 ", props);
   // material ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

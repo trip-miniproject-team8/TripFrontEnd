@@ -22,9 +22,11 @@ const PostWrite = (props) => {
   const {history} = props;
 
   const _post = is_edit ? post_list.find((p) => p.id == post_id) : null;
-
+  // console.log(post_list);
+  // console.log(post_id);
   const [contents, setContents] = React.useState(_post ? _post.contents : '');
 
+  const [newPostId, setNewPostId]= React.useState('');
   React.useEffect(() => {
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
@@ -46,7 +48,7 @@ const PostWrite = (props) => {
   const addPost = () => {
 
     console.log(contents);
-    api.post('/api/post',{content:contents},{
+    api.put(`/api/post/${newPostId}`,{content:contents},{
       headers:{  
         'Content-Type' : 'application/json',  
         "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -69,6 +71,7 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
+
     dispatch(postActions.editPostFB(post_id, {contents: contents}));
   }
 
@@ -90,7 +93,7 @@ const PostWrite = (props) => {
     <React.Fragment>
       <Grid maxWidth='500px' padding='16px' margin='auto'>
       <Grid padding='16px'>
-        <Upload/>
+        {is_edit ?(<Upload post_id={post_id} is_edit setNewPostId={setNewPostId}/>):(<Upload setNewPostId={setNewPostId}/>)}
       </Grid>
       <Grid>
         <Grid>
@@ -101,7 +104,7 @@ const PostWrite = (props) => {
         </Grid>
         <Grid padding='0 0 15px'>
           {is_edit ? (
-          <Button text="게시글 수정" border='none' bg='#212121' color='#fff' _onClick={editPost}></Button>
+          <Button text="게시글 수정" border='none' bg='#212121' color='#fff' _onClick={addPost}></Button>
           ) : (
           <Button text="게시글 작성" border='none' bg='#212121' color='#fff' _onClick={addPost}></Button>
           )}

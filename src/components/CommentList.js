@@ -5,14 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import comment, {actionCreators as commentActions} from "../redux/modules/comment";
 
 const CommentList = (props) => {
-  console.log("일단 머불러와?", props);
+  console.log(props);
   const dispatch = useDispatch();
   const comment_list = useSelector(state => state.comment.list);
   const {post_id} = props;
-  // console.log(comment_list);
-  // console.log("aklsdfklzkl");
-  // console.log(comment_list);
-
+  console.log("aklsdfklzkl");
+  console.log(comment_list[props.post_id]);
 
   React.useEffect(() => {
     if(!comment_list[post_id]){
@@ -44,7 +42,6 @@ const CommentList = (props) => {
             <Grid is_flex>
               <CommentItem key={c.commentId} {...c}/>
               <Button width='auto' border='none' _onClick={()=>{
-                console.log(c, c.commentId)
                 commentDel(c.commentId);
                 }}>
                 <Text size='24px' margin='0'>X</Text>
@@ -64,7 +61,7 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
-  // console.log(props);
+  console.log(props);
 
 
   const commentDel = () => {
@@ -74,17 +71,17 @@ const CommentItem = (props) => {
     }
   };
 
-  console.log(props);
+  // console.Console(props);
   return (
     <React.Fragment>
       <Grid is_flex>
-        <Grid is_flex width='auto'>
+        <Grid is_flex width="auto">
           <Image shape="circle"/>
           <Text bold>{props.userNickname}</Text>
         </Grid>
-        <Grid is_flex margin="0px 15px">
-            <Text>{props.comment}</Text>
-            <Grid width='auto'>
+        <Grid is_flex margin="0px 4px">
+            <Text margin="0px">{props.comment}</Text>
+            <Grid>
               <Text margin="0px">{props.createdAt}</Text>
               {/* <Button width='auto' border='none' _onClick={commentDel}>
                 <Text size='24px' margin='0'>X</Text>

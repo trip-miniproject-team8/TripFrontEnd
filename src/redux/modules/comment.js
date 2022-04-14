@@ -18,7 +18,7 @@ const LOADING = "LOADING";
 
 const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({post_id, comment_list}));
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, comment}));
-const deleteComment = createAction(DELETE_COMMENT, (comment_id) => ({comment_id}));
+const deleteComment = createAction(DELETE_COMMENT, (comment_id,comment_list) => ({comment_id,comment_list}));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
@@ -95,11 +95,13 @@ const deleteCommentFB = (comment_id = null) => {
       window.alert("댓글 정보가 없어요!");
       return;
     }
+    const _comment = getState().comment.list;
+    console.log(_comment);
     apis.delComment(comment_id)
       .then((res)=>{
         console.log('댓글 삭제 후 전달된 데이터! :', res);
         window.alert("삭제가 완료되었습니다!");
-        dispatch(deleteComment(comment_id));
+        dispatch(deleteComment(comment_id,_comment));
         history.replace("/");
       })
       .catch((error)=>{
@@ -123,7 +125,14 @@ export default handleActions(
         console.log('addtest');
       }),
       [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
-        draft.list = draft.list.filter((p) => p.id !== action.payload.comment_id);
+        console.log('deletecheck');
+        console.log(action.payload.list);
+        console.log(draft.list);
+        draft.list = draft.list.filter((p) => {
+          console.log(p);
+          console.log(p.commentId);
+          return(p.commentId !== action.payload.comment_id);}
+        );
       }),
       [LOADING]: (state, action) => 
       produce(state, (draft) => {
