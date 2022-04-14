@@ -137,7 +137,9 @@ export default handleActions(
       }),
       [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
         const new_comment_list = draft.list[action.payload.post_id].filter((c, i) => {
+          window.location.reload();
           return parseInt(action.payload.comment_idx) !== i;
+          
         })
     
         draft.list[action.payload.post_id] = new_comment_list;
