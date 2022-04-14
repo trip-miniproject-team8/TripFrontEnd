@@ -100,7 +100,7 @@ const Post = (props) => {
             }}}>
           <Image shape='rectangle' src={props.imageUrl} />
         </Grid>
-        <Grid padding='16px' margin='auto'>
+        <Grid width='95%' padding='16px' margin='auto'>
           <Text margin='0' bold>댓글 {props.commentCtn}개</Text>        
         </Grid>
       </Grid>
