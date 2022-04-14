@@ -36,9 +36,17 @@ const Post = (props) => {
   const handleClose = (option) => {
     console.log('아이콘 확인!!',option);
     if (option==='수정하기'){
-      history.push(`/posting/${props.id}`);
+      if (props.id) {
+        history.push(`/posting/${props.id}`);
+      }else {
+        history.push(`/posting/${props.postId}`);
+      }
     }else if(option==='삭제하기'){
-      dispatch(postActions.deletePostFB(props.id));
+      if (props.id) {
+        dispatch(postActions.deletePostFB(props.id));
+      }else {
+        dispatch(postActions.deletePostFB(props.postId));
+      }
     }
     setAnchorEl(null);
   };
