@@ -12,4 +12,4 @@
 
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/> <img src="https://img.shields.io/badge/MUI-007FFF?style=flat-square&logo=MUI&logoColor=white"/> 
 
-<img src="https://img.shields.io/badge/SockJS-010101?style=flat-square&logo=SockJS&logoColor=white"/> <img src="https://img.shields.io/badge/StompJS-010101?style=flat-square&logo=StompJS&logoColor=white"/> <img src="https://img.shields.io/badge/AWS Amplify-FF9900?style=flat-square&logo=AWS Amplify&logoColor=white"/>
+<img src="https://img.shields.io/badge/SockJS-010101?style=flat-square&logo=SockJS&logoColor=white"/> <img src="https://img.shields.io/badge/StompJS-010101?style=flat-square&logo=StompJS&logoColor=white"/> <img src="https://img.shields.io/badge/AWS s3-FF9900?style=flat-square&logo=AWS Amplify&logoColor=white"/>
